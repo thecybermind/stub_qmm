@@ -18,17 +18,17 @@ CFG=stub_qmm - Win32 Release
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
 !MESSAGE "stub_qmm - Win32 Release" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE "stub_qmm - Win32 Release RTCWET" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "stub_qmm - Win32 Release WET" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "stub_qmm - Win32 Release RTCWMP" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "stub_qmm - Win32 Release RTCWSP" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE "stub_qmm - Win32 Release JKA" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE "stub_qmm - Win32 Release JK2" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "stub_qmm - Win32 Release JAMP" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "stub_qmm - Win32 Release JK2MP" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "stub_qmm - Win32 Debug" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE "stub_qmm - Win32 Debug RTCWET" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "stub_qmm - Win32 Debug WET" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "stub_qmm - Win32 Debug RTCWMP" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "stub_qmm - Win32 Debug RTCWSP" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE "stub_qmm - Win32 Debug JKA" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE "stub_qmm - Win32 Debug JK2" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "stub_qmm - Win32 Debug JAMP" (based on "Win32 (x86) Dynamic-Link Library")
+!MESSAGE "stub_qmm - Win32 Debug JK2MP" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE 
 
 # Begin Project
@@ -52,7 +52,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_Q3A" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\sdks\q3a\game" /I "..\..\qmm1" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_Q3A" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_Q3A" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -64,20 +64,20 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
 
-!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Release RTCWET"
+!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Release WET"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
-# PROP BASE Output_Dir "Release_RTCWET"
-# PROP BASE Intermediate_Dir "Release_RTCWET"
+# PROP BASE Output_Dir "Release_WET"
+# PROP BASE Intermediate_Dir "Release_WET"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
-# PROP Output_Dir "Release_RTCWET"
-# PROP Intermediate_Dir "Release_RTCWET"
+# PROP Output_Dir "Release_WET"
+# PROP Intermediate_Dir "Release_WET"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWET" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\sdks\rtcwet\game" /I "..\..\qmm1" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWET" /YX /FD /c
+# ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_WET" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_WET" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -102,7 +102,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Release_RTCWMP"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWMP" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\sdks\rtcwmp\game" /I "..\..\qmm1" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWMP" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWMP" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -127,7 +127,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Release_RTCWSP"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWSP" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\sdks\rtcwsp\game" /I "..\..\qmm1" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWSP" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWSP" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -139,20 +139,20 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
 
-!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Release JKA"
+!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Release JAMP"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
-# PROP BASE Output_Dir "Release_JKA"
-# PROP BASE Intermediate_Dir "Release_JKA"
+# PROP BASE Output_Dir "Release_JAMP"
+# PROP BASE Intermediate_Dir "Release_JAMP"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
-# PROP Output_Dir "Release_JKA"
-# PROP Intermediate_Dir "Release_JKA"
+# PROP Output_Dir "Release_JAMP"
+# PROP Intermediate_Dir "Release_JAMP"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JKA" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\sdks\jka\game" /I "..\..\qmm1" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JKA" /YX /FD /c
+# ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JAMP" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JAMP" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -164,20 +164,20 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
 
-!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Release JK2"
+!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Release JK2MP"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
-# PROP BASE Output_Dir "Release_JK2"
-# PROP BASE Intermediate_Dir "Release_JK2"
+# PROP BASE Output_Dir "Release_JK2MP"
+# PROP BASE Intermediate_Dir "Release_JK2MP"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
-# PROP Output_Dir "Release_JK2"
-# PROP Intermediate_Dir "Release_JK2"
+# PROP Output_Dir "Release_JK2MP"
+# PROP Intermediate_Dir "Release_JK2MP"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JK2" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\sdks\jk2\game" /I "..\..\qmm1" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JK2" /YX /FD /c
+# ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JK2MP" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O2 /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JK2MP" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -202,7 +202,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_Q3A" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\sdks\q3a\game" /I "..\..\qmm1" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_Q3A" /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_Q3A" /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -214,20 +214,20 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 
-!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Debug RTCWET"
+!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Debug WET"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "Debug_RTCWET"
-# PROP BASE Intermediate_Dir "Debug_RTCWET"
+# PROP BASE Output_Dir "Debug_WET"
+# PROP BASE Intermediate_Dir "Debug_WET"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "Debug_RTCWET"
-# PROP Intermediate_Dir "Debug_RTCWET"
+# PROP Output_Dir "Debug_WET"
+# PROP Intermediate_Dir "Debug_WET"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWET" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\sdks\rtcwet\game" /I "..\..\qmm1" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWET" /YX /FD /GZ /c
+# ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_WET" /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_WET" /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -252,7 +252,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Debug_RTCWMP"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWMP" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\sdks\rtcwmp\game" /I "..\..\qmm1" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWMP" /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWMP" /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -277,7 +277,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Debug_RTCWSP"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWSP" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\sdks\rtcwsp\game" /I "..\..\qmm1" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWSP" /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_RTCWSP" /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -289,20 +289,20 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 
-!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Debug JKA"
+!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Debug JAMP"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "Debug_JKA"
-# PROP BASE Intermediate_Dir "Debug_JKA"
+# PROP BASE Output_Dir "Debug_JAMP"
+# PROP BASE Intermediate_Dir "Debug_JAMP"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "Debug_JKA"
-# PROP Intermediate_Dir "Debug_JKA"
+# PROP Output_Dir "Debug_JAMP"
+# PROP Intermediate_Dir "Debug_JAMP"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JKA" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\sdks\jka\game" /I "..\..\qmm1" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JKA" /YX /FD /GZ /c
+# ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JAMP" /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JAMP" /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -314,20 +314,20 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 
-!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Debug JK2"
+!ELSEIF  "$(CFG)" == "stub_qmm - Win32 Debug JK2MP"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "Debug_JK2"
-# PROP BASE Intermediate_Dir "Debug_JK2"
+# PROP BASE Output_Dir "Debug_JK2MP"
+# PROP BASE Intermediate_Dir "Debug_JK2MP"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "Debug_JK2"
-# PROP Intermediate_Dir "Debug_JK2"
+# PROP Output_Dir "Debug_JK2MP"
+# PROP Intermediate_Dir "Debug_JK2MP"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JK2" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\sdks\jk2\game" /I "..\..\qmm1" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JK2" /YX /FD /GZ /c
+# ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JK2MP" /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "..\..\qmm_sdks" /I "..\..\qmm2" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GAME_JK2MP" /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -344,17 +344,17 @@ LINK32=link.exe
 # Begin Target
 
 # Name "stub_qmm - Win32 Release"
-# Name "stub_qmm - Win32 Release RTCWET"
+# Name "stub_qmm - Win32 Release WET"
 # Name "stub_qmm - Win32 Release RTCWMP"
 # Name "stub_qmm - Win32 Release RTCWSP"
-# Name "stub_qmm - Win32 Release JKA"
-# Name "stub_qmm - Win32 Release JK2"
+# Name "stub_qmm - Win32 Release JAMP"
+# Name "stub_qmm - Win32 Release JK2MP"
 # Name "stub_qmm - Win32 Debug"
-# Name "stub_qmm - Win32 Debug RTCWET"
+# Name "stub_qmm - Win32 Debug WET"
 # Name "stub_qmm - Win32 Debug RTCWMP"
 # Name "stub_qmm - Win32 Debug RTCWSP"
-# Name "stub_qmm - Win32 Debug JKA"
-# Name "stub_qmm - Win32 Debug JK2"
+# Name "stub_qmm - Win32 Debug JAMP"
+# Name "stub_qmm - Win32 Debug JK2MP"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
