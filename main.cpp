@@ -10,8 +10,25 @@ Created By:
 */
 
 #include "version.h"
-#include <q_shared.h>
-#include <g_local.h>
+#if defined(GAME_Q3A)
+#include <q3a/game/q_shared.h>
+#include <q3a/game/g_local.h>
+#elif defined(GAME_RTCWMP)
+#include <rtcwmp/game/q_shared.h>
+#include <rtcwmp/game/g_local.h>
+#elif defined(GAME_RTCWSP)
+#include <rtcwsp/game/q_shared.h>
+#include <rtcwsp/game/g_local.h>
+#elif defined(GAME_JK2MP)
+#include <jk2mp/game/q_shared.h>
+#include <jk2mp/game/g_local.h>
+#elif defined(GAME_JAMP)
+#include <jamp/game/q_shared.h>
+#include <jamp/game/g_local.h>
+#elif defined(GAME_WET)
+#include <wet/game/q_shared.h>
+#include <wet/game/g_local.h>
+#endif
 #include <qmmapi.h>
 
 pluginres_t* g_result = NULL;
@@ -83,16 +100,18 @@ C_DLLEXPORT void QMM_Detach(int reserved) {
    Do engine-dependent startup routines here, in a cmd==GAME_INIT check
    Do mod-dependent shutdown routines here, in a cmd==GAME_SHUTDOWN check
     - cmd = command like GAME_INIT, GAME_CLIENT_COMMAND, etc. (game-specific)
-	- argX = argument to cmd
+	- varargs = arguments to cmd
 */
-C_DLLEXPORT int QMM_vmMain(int cmd, int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11) {
+C_DLLEXPORT int QMM_vmMain(int cmd, ...) {
+	QMM_GET_VMMAIN_ARGS();
+
 	if (cmd == GAME_CLIENT_COMMAND) {
 		char buf[16];
 		g_syscall(G_ARGV, 0, buf, sizeof(buf));
 		if (!strcmp(buf, "myinfo")) {
 			char userinfo[MAX_INFO_STRING];
-			g_syscall(G_GET_USERINFO, arg0, userinfo, sizeof(userinfo));
-			g_syscall(G_SEND_SERVER_COMMAND, arg0, QMM_VARARGS("print \"[STUB_QMM] Your infostring is: '%s'\"", userinfo));
+			g_syscall(G_GET_USERINFO, args[0], userinfo, sizeof(userinfo));
+			g_syscall(G_SEND_SERVER_COMMAND, args[0], QMM_VARARGS("print \"[STUB_QMM] Your infostring is: '%s'\"", userinfo));
 			QMM_RET_SUPERCEDE(1);
 		}
 	}
@@ -104,15 +123,18 @@ C_DLLEXPORT int QMM_vmMain(int cmd, int arg0, int arg1, int arg2, int arg3, int 
    This is called BEFORE the engine's syscall function is called (by mod)
    Store entity information here, in a cmd==G_LOCATE_GAME_DATA check
     - cmd = command like G_PRINT, G_LOCATE_GAME_DATA, etc. (game-specific)
-	- argX = argument to cmd
+	- varargs = arguments to cmd
 */
-C_DLLEXPORT int QMM_syscall(int cmd, int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12) {
+C_DLLEXPORT int QMM_syscall(int cmd, ...) {
+	QMM_GET_SYSCALL_ARGS();
+
+	// QMM_syscall_Ex will be called instead of this if it exists
 	if (cmd == G_LOCATE_GAME_DATA) {
-		g_gents = (gentity_t*)arg0;
+		g_gents = (gentity_t*)(args[0]);
 		//g_maxgents = ENTITYNUM_MAX_NORMAL;
-		g_gentsize = arg2;
-		g_clients = (gclient_t*)arg3;
-		g_clientsize = arg4;
+		g_gentsize = args[2];
+		g_clients = (gclient_t*)(args[3]);
+		g_clientsize = args[4];
 
 		g_syscall(G_PRINT, "(STUB_QMM) Entity data stored!\n");
 		
@@ -127,9 +149,10 @@ C_DLLEXPORT int QMM_syscall(int cmd, int arg0, int arg1, int arg2, int arg3, int
    Do engine-dependent shutdown routines here, in a cmd==GAME_SHUTDOWN check
    Do mod-dependent startup routines here, in a cmd==GAME_INIT check
     - cmd = command like GAME_INIT, GAME_CLIENT_COMMAND, etc. (game-specific)
-	- argX = argument to cmd
+	- varargs = arguments to cmd
 */
-C_DLLEXPORT int QMM_vmMain_Post(int cmd, int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11) {
+C_DLLEXPORT int QMM_vmMain_Post(int cmd, ...) {
+	QMM_GET_VMMAIN_ARGS();
 	
 	QMM_RET_IGNORED(1);
 }
@@ -137,10 +160,10 @@ C_DLLEXPORT int QMM_vmMain_Post(int cmd, int arg0, int arg1, int arg2, int arg3,
 /* QMM_syscall_Post
    This is called AFTER the engine's syscall function is called (by mod)
     - cmd = command like G_PRINT, G_LOCATE_GAME_DATA, etc. (game-specific)
-	- argX = argument to cmd
+	- varargs = arguments to cmd
 */
-C_DLLEXPORT int QMM_syscall_Post(int cmd, int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12) {
-	//g_syscall(G_PRINT, QMM_VARARGS("[STUB_QMM] QMM_syscall_Post(%s): Hi!\n", QMM_ENGMSGNAME(cmd)));
+C_DLLEXPORT int QMM_syscall_Post(int cmd, ...) {
+	QMM_GET_SYSCALL_ARGS();
 
 	QMM_RET_IGNORED(1);
 }

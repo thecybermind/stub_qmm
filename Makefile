@@ -7,7 +7,7 @@ include Config.mak
 
 CC=g++
 
-BASE_CFLAGS=-pipe 
+BASE_CFLAGS=-pipe -I../qmm_sdks -I../qmm2
 
 BROOT=linux
 BR=$(BROOT)/release

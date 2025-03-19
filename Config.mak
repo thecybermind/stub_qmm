@@ -1,9 +1,9 @@
-Q3A_FLAGS = -DGAME_Q3A -I../sdks/q3a/game -I../qmm1
-RTCWMP_FLAGS = -DGAME_RTCWMP -I../sdks/rtcwmp/game -I../qmm1
-JKA_FLAGS = -DGAME_JKA -I../sdks/jka/game -I../qmm1
-JK2_FLAGS = -DGAME_JK2 -I../sdks/jk2/game -I../qmm1
-RTCWSP_FLAGS = -DGAME_RTCWSP -I../sdks/rtcwsp/game -I../qmm1
-RTCWET_FLAGS = -DGAME_RTCWET -I../sdks/rtcwet/game -I../qmm1
+Q3A_FLAGS = -DGAME_Q3A
+RTCWMP_FLAGS = -DGAME_RTCWMP
+JAMP_FLAGS = -DGAME_JAMP
+JK2MP_FLAGS = -DGAME_JK2MP
+RTCWSP_FLAGS = -DGAME_RTCWSP
+WET_FLAGS = -DGAME_WET
 
 BINARY = stub_qmm
 SRC_FILES = main.cpp
