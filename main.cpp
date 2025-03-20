@@ -9,11 +9,14 @@ Created By:
 
 */
 
-#include <string.h>
-#include "version.h"
+#define _CRT_SECURE_NO_WARNINGS 1
 
-#include "game.h"
 #include <qmmapi.h>
+
+#include "version.h"
+#include "game.h"
+
+#include <string.h>
 
 pluginres_t* g_result = nullptr;
 plugininfo_t g_plugininfo = {
@@ -112,7 +115,7 @@ C_DLLEXPORT int QMM_vmMain(int cmd, ...) {
 C_DLLEXPORT int QMM_syscall(int cmd, ...) {
 	QMM_GET_SYSCALL_ARGS();
 
-	// QMM_syscall_Ex will be called instead of this if it exists
+#if !defined(GAME_STVOYSP)
 	if (cmd == G_LOCATE_GAME_DATA) {
 		g_gents = (gentity_t*)(args[0]);
 		//g_maxgents = ENTITYNUM_MAX_NORMAL;
@@ -124,6 +127,7 @@ C_DLLEXPORT int QMM_syscall(int cmd, ...) {
 		
 		QMM_RET_SUPERCEDE(1);
 	}
+#endif
 
 	QMM_RET_IGNORED(1);
 }
@@ -137,7 +141,20 @@ C_DLLEXPORT int QMM_syscall(int cmd, ...) {
 */
 C_DLLEXPORT int QMM_vmMain_Post(int cmd, ...) {
 	QMM_GET_VMMAIN_ARGS();
-	
+
+#if defined(GAME_STVOYSP)
+	// we can check for an entity's client pointer after a client connects, and determine the actual gclient_t size
+	if (cmd == GAME_CLIENT_CONNECT) {
+		int clientnum = args[0];
+		gentity_t* ent = ENT_FROM_NUM(clientnum);
+		gclient_t* client = ent->client;
+
+		// first client is 0, and that doesn't help us (also, can't divide by 0)
+		if (clientnum)
+			g_clientsize = ((unsigned char*)client - (unsigned char*)g_clients) / clientnum;
+	}
+#endif
+
 	QMM_RET_IGNORED(1);
 }
 
@@ -148,6 +165,18 @@ C_DLLEXPORT int QMM_vmMain_Post(int cmd, ...) {
 */
 C_DLLEXPORT int QMM_syscall_Post(int cmd, ...) {
 	QMM_GET_SYSCALL_ARGS();
+
+#if defined(GAME_STVOYSP)
+	if (cmd == GAME_INIT) {
+		// stvoy needs to call vmMain(GAMEVP_GENTITIES) and vmMain(GAMEV_GENTITYSIZE) to get the values out of the export struct
+		g_gents = (gentity_t*)g_vmMain(GAMEVP_GENTITIES);
+		g_gentsize = g_vmMain(GAMEV_GENTITYSIZE);
+
+		// for clients, the mod stores the first client pointer in the first entity:
+		// g_entities[0].client = level.clients;
+		g_clients = (gclient_t*)(g_gents[0].client);
+	}
+#endif
 
 	QMM_RET_IGNORED(1);
 }
