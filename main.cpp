@@ -9,29 +9,13 @@ Created By:
 
 */
 
+#include <string.h>
 #include "version.h"
-#if defined(GAME_Q3A)
-#include <q3a/game/q_shared.h>
-#include <q3a/game/g_local.h>
-#elif defined(GAME_RTCWMP)
-#include <rtcwmp/game/q_shared.h>
-#include <rtcwmp/game/g_local.h>
-#elif defined(GAME_RTCWSP)
-#include <rtcwsp/game/q_shared.h>
-#include <rtcwsp/game/g_local.h>
-#elif defined(GAME_JK2MP)
-#include <jk2mp/game/q_shared.h>
-#include <jk2mp/game/g_local.h>
-#elif defined(GAME_JAMP)
-#include <jamp/game/q_shared.h>
-#include <jamp/game/g_local.h>
-#elif defined(GAME_WET)
-#include <wet/game/q_shared.h>
-#include <wet/game/g_local.h>
-#endif
+
+#include "game.h"
 #include <qmmapi.h>
 
-pluginres_t* g_result = NULL;
+pluginres_t* g_result = nullptr;
 plugininfo_t g_plugininfo = {
 	"STUB_QMM",									//name of plugin
 	STUB_QMM_VERSION,							//version of plugin
@@ -106,7 +90,7 @@ C_DLLEXPORT int QMM_vmMain(int cmd, ...) {
 	QMM_GET_VMMAIN_ARGS();
 
 	if (cmd == GAME_CLIENT_COMMAND) {
-		char buf[16];
+		char buf[16] = { 0 };
 		g_syscall(G_ARGV, 0, buf, sizeof(buf));
 		if (!strcmp(buf, "myinfo")) {
 			char userinfo[MAX_INFO_STRING];
