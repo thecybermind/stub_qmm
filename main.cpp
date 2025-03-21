@@ -53,8 +53,10 @@ C_DLLEXPORT void QMM_Query(plugininfo_t** pinfo) {
 }
 
 /* QMM_Attach
-   This is the second function called by QMM
-   Do game-independent startup routines here, and their correspnoding shutdown routines in QMM_Detach
+   This is the second function called by QMM.
+   Keep in mind, this is called during QMM's handling of vmMain(GAME_INIT) *before* it has been routed to the mod,
+   so the mod is completely uninitialized at this point, and is generally unsafe to call into. You can, however, use
+   some engine functions through syscall.
     - engfunc = pointer to the engine's syscall function
     - modfunc = pointer to the mod's vmMain function
     - presult = pointer to plugin result variable
@@ -73,8 +75,10 @@ C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginre
 }
 
 /* QMM_Detach
-   This is the last function called by QMM
-   Do game-independent shutdown routines here
+   This is the last function called by QMM. This is called after returning false from QMM_Attach(), or during final shutdown.
+   Keep in mind, the shutdown process occurs in QMM's vmMain(GAME_SHUTDOWN) *after* it has been routed to the mod, so the mod
+   is completely shutdown at this point, and is generally unsafe to call into. You can, however, still use some engine functions
+   through syscall.
     - reserved = reserved for future use
 */
 C_DLLEXPORT void QMM_Detach(int reserved) {
@@ -83,9 +87,10 @@ C_DLLEXPORT void QMM_Detach(int reserved) {
 }
 
 /* QMM_vmMain
-   This is called BEFORE the mod's vmMain function is called (by engine)
-   Do engine-dependent startup routines here, in a cmd==GAME_INIT check
-   Do mod-dependent shutdown routines here, in a cmd==GAME_SHUTDOWN check
+   This is called BEFORE the mod's vmMain function is called (by engine).
+   Keep in mind, if cmd==GAME_INIT, this function is called *before* it has been routed to the mod, so the mod is completely
+   uninitialized at this point, and is generally unsafe to call into. You can, however, use some engine functions through
+   syscall.
     - cmd = command like GAME_INIT, GAME_CLIENT_COMMAND, etc. (game-specific)
 	- varargs = arguments to cmd
 */
@@ -107,8 +112,8 @@ C_DLLEXPORT int QMM_vmMain(int cmd, ...) {
 }
 
 /* QMM_syscall
-   This is called BEFORE the engine's syscall function is called (by mod)
-   Store entity information here, in a cmd==G_LOCATE_GAME_DATA check
+   This is called BEFORE the engine's syscall function is called (by mod).
+   You would typically store entity information here, in a cmd==G_LOCATE_GAME_DATA check
     - cmd = command like G_PRINT, G_LOCATE_GAME_DATA, etc. (game-specific)
 	- varargs = arguments to cmd
 */
@@ -134,8 +139,8 @@ C_DLLEXPORT int QMM_syscall(int cmd, ...) {
 
 /* QMM_vmMain_Post
    This is called AFTER the mod's vmMain function is called (by engine)
-   Do engine-dependent shutdown routines here, in a cmd==GAME_SHUTDOWN check
-   Do mod-dependent startup routines here, in a cmd==GAME_INIT check
+   Keep in mind, if cmd==GAME_SHUTDOWN, this function is called *after* it has been routed to the mod, so the mod is completely
+   shutdown at this point, and is generally unsafe to call into. You can, however, use some engine functions through syscall.
     - cmd = command like GAME_INIT, GAME_CLIENT_COMMAND, etc. (game-specific)
 	- varargs = arguments to cmd
 */
@@ -143,10 +148,10 @@ C_DLLEXPORT int QMM_vmMain_Post(int cmd, ...) {
 	QMM_GET_VMMAIN_ARGS();
 
 #if defined(GAME_STVOYSP)
-	// we can check for an entity's client pointer after a client connects, and determine the actual gclient_t size
+	// we can check for an entity's client pointer after a 2nd client connects, and determine the actual gclient_t size
 	if (cmd == GAME_CLIENT_CONNECT) {
 		int clientnum = args[0];
-		gentity_t* ent = ENT_FROM_NUM(clientnum);
+		gentity_t* ent = ENT_FROM_NUM(clientnum);	// this is safe since we already know gentity_t size
 		gclient_t* client = ent->client;
 
 		// first client is 0, and that doesn't help us (also, can't divide by 0)
