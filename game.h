@@ -12,11 +12,6 @@ Created By:
 #ifndef __STUB_QMM_GAME_H__
 #define __STUB_QMM_GAME_H__
 
-#ifdef _WIN32
-// 'typedef ': ignored on left of '<unnamed-enum>' when no variable is declared
-#pragma warning(disable:4091)
-#endif
-
 #if defined(GAME_Q3A)
 #include <q3a/game/g_local.h>
 #elif defined(GAME_RTCWMP)
@@ -29,19 +24,20 @@ Created By:
 #include <jamp/game/g_local.h>
 #elif defined(GAME_WET)
 #include <wet/game/g_local.h>
-#elif defined(GAME_STVOYMP)
-#include <stvoymp/game/g_local.h>
-#elif defined(GAME_STVOYSP)
-#define GAME_INCLUDE
-#include <stvoysp/game/q_shared.h>
-#include <stvoysp/game/g_local.h>
-#include <game_stvoysp.h>
+#elif defined(GAME_STVOYHM)
+#include <stvoyhm/game/g_local.h>
 #elif defined(GAME_STEF2)
 #include <stef2/game/g_local.h>
 #include <game_stef2.h>
 #elif defined(GAME_MOHAA)
 #include <mohaa/fgame/g_local.h>
 #include <game_mohaa.h>
+#elif defined(GAME_MOHSH)
+#include <mohsh/fgame/g_local.h>
+#include <game_mohsh.h>
+#elif defined(GAME_MOHBT)
+#include <mohaa/fgame/g_local.h>
+#include <game_mohbt.h>
 #endif
 
 #endif // __STUB_QMM_GAME_H__
