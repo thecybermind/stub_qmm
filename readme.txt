@@ -7,5 +7,5 @@ Created By:
     Kevin Masterson < cybermind@gmail.com >
 
 1. Install QMM ( https://github.com/thecybermind/qmm2/wiki/Installation )
-2. Place the stub_qmm.dll/so file in your mod directory (i.e. baseq3/qmmaddons/stub_qmm)
-3. Add the path to stub_qmm.dll as an entry in the plugins list in qmm2.json
+2. Place the stub_qmm.dll/so file in your mod directory (i.e. baseq3/qmmaddons/stub_qmm/dlls/stub_qmm.sdll)
+3. Add the path to stub_qmm.dll/so as an entry in the plugins list in qmm2.json

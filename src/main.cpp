@@ -36,6 +36,7 @@ mod_vmMain_t g_vmMain = NULL;
 pluginfuncs_t* g_pluginfuncs = NULL;
 intptr_t g_vmbase = 0;
 
+// store the game's entity and client info
 gentity_t* g_gents = NULL;
 int g_gentsize = sizeof(gentity_t);
 int g_maxgents = ENTITYNUM_MAX_NORMAL;
@@ -57,13 +58,15 @@ C_DLLEXPORT void QMM_Query(plugininfo_t** pinfo) {
    Keep in mind, this is called during QMM's handling of vmMain(GAME_INIT) *before* it has been routed to the mod,
    so the mod is completely uninitialized at this point, and is generally unsafe to call into. You can, however, use
    some engine functions through syscall.
-    - engfunc = pointer to the engine's syscall function
-    - modfunc = pointer to the mod's vmMain function
-    - presult = pointer to plugin result variable
-	- vmbase = value to add to pointers passed to the engine from a QVM mod (0 if DLL mod)
+    - engfunc  = pointer to the engine's syscall function
+    - modfunc  = pointer to the mod's vmMain function
+    - presult  = pointer to plugin result variable
+	- vmbase   = value to add to pointers passed to the engine from a QVM mod (0 if DLL mod)
     - reserved = reserved for future use
-   return 0 = failure, QMM_Detach will be called and plugin will be unloaded
-   return 1 = succeed, plugin will be loaded
+   
+   return:
+    - 0 = failure, QMM_Detach will be called and plugin will be unloaded
+    - 1 = succeed, plugin will be loaded
 */
 C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginres_t* presult, pluginfuncs_t* pluginfuncs, intptr_t vmbase, intptr_t reserved) {
 	QMM_SAVE_VARS();
@@ -82,7 +85,7 @@ C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginre
     - reserved = reserved for future use
 */
 C_DLLEXPORT void QMM_Detach(intptr_t reserved) {
-	//ignore 'reserved' but satisfy unused warnings
+	// ignore 'reserved' but satisfy unused warnings
 	reserved = 0;
 }
 
@@ -91,18 +94,21 @@ C_DLLEXPORT void QMM_Detach(intptr_t reserved) {
    Keep in mind, if cmd==GAME_INIT, this function is called *before* it has been routed to the mod, so the mod is completely
    uninitialized at this point, and is generally unsafe to call into. You can, however, use some engine functions through
    syscall.
-    - cmd = command like GAME_INIT, GAME_CLIENT_COMMAND, etc. (game-specific)
+    - cmd  = command like GAME_INIT, GAME_CLIENT_COMMAND, etc. (game-specific)
 	- args = arguments to cmd
 */
 C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 	switch (cmd) {
 		case GAME_INIT:
+			// example showing writing to QMM log
 			QMM_WRITEQMMLOG(QMM_VARARGS("Stub_QMM loaded! Game engine: %s", QMM_GETGAMEENGINE()), QMMLOG_INFO, "STUB_QMM");
 			break;
 		case GAME_CLIENT_COMMAND:
 			char buf[16] = "";
 			intptr_t clientnum = args[0];
-			
+
+			// some engines use this arg/buf/buflen syntax for getting ARGV
+			// others return the char*, so we use QMM_ARGV to handle both methods automatically
 			QMM_ARGV(0, buf, sizeof(buf));
 			if (!strcmp(buf, "myinfo")) {
 				char userinfo[MAX_INFO_STRING];
@@ -110,9 +116,21 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your infostring is: '%s'\"\n", userinfo));
 				QMM_RET_SUPERCEDE(1);
 			}
+			// purely an example to show entity/client access
 			else if (!strcmp(buf, "myweapon")) {
 				gclient_t* client = CLIENT_FROM_NUM(clientnum);
-				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapon is: %d\"\n", client->ps.weapon));
+#if defined(GAME_STEF2)
+				int left = client->ps.activeItems[ITEM_NAME_WEAPON_LEFT];
+				int right = client->ps.activeItems[ITEM_NAME_WEAPON_RIGHT];
+				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapons are: %d %d\"\n", left, right));
+#else
+	#if defined(GAME_MOHAA) || defined(GAME_MOHSH) || defined(GAME_MOHBT)
+				int item = client->ps.activeItems[ITEM_WEAPON];
+	#else
+				int item = client->ps.weapon;
+	#endif
+				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapon is: %d\"\n", item));
+#endif
 				QMM_RET_SUPERCEDE(1);
 			}
 	}
@@ -127,6 +145,7 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 	- args = arguments to cmd
 */
 C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
+	// this is fairly common to store entity/client data for later
 	if (cmd == G_LOCATE_GAME_DATA) {
 		g_gents = (gentity_t*)(args[0]);
 		g_gentsize = args[2];

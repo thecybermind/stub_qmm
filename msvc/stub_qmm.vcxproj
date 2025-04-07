@@ -179,11 +179,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\main.cpp" />
+    <ClInclude Include="..\include\game.h" />
+    <ClInclude Include="..\include\version.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\game.h" />
-    <ClInclude Include="..\version.h" />
+    <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -219,6 +219,182 @@
     <OutDir>..\bin\$(Configuration)\$(PlatformShortName)\</OutDir>
     <IntDir>..\obj\$(Configuration)\$(PlatformShortName)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-JAMP|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-JK2MP|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-MOHAA|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-MOHBT|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-MOHSH|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Q3A|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWMP|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWSP|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-STEF2|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-STVOYHM|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-WET|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-JK2MP|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MOHAA|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MOHBT|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MOHSH|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Q3A|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-RTCWMP|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-RTCWSP|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-STEF2|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-STVOYHM|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-WET|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-JAMP|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-JK2MP|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-MOHAA|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-MOHBT|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-MOHSH|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Q3A|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWMP|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWSP|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-STEF2|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-STVOYHM|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-WET|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-JK2MP|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MOHAA|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MOHBT|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-MOHSH|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Q3A|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-RTCWMP|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-RTCWSP|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-STEF2|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-STVOYHM|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-WET|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug-Q3A'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -227,7 +403,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-Q3A|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-Q3A|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -235,6 +410,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-Q3A|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-Q3A|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-Q3A|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-Q3A|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-Q3A|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -250,7 +427,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWMP|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWMP|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -258,6 +434,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWMP|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWMP|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWMP|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWMP|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWMP|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -273,7 +451,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWSP|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWSP|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -281,6 +458,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWSP|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWSP|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWSP|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWSP|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-RTCWSP|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -296,7 +475,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-WET|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-WET|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -304,6 +482,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-WET|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-WET|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-WET|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-WET|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-WET|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -319,7 +499,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-JK2MP|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-JK2MP|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -327,6 +506,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-JK2MP|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-JK2MP|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-JK2MP|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-JK2MP|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-JK2MP|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -342,7 +523,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-JAMP|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-JAMP|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -350,6 +530,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-JAMP|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-JAMP|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-JAMP|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-JAMP|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-JAMP|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -365,7 +547,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-STVOYHM|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-STVOYHM|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -373,6 +554,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-STVOYHM|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-STVOYHM|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-STVOYHM|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-STVOYHM|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-STVOYHM|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -388,7 +571,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-STEF2|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-STEF2|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -396,6 +578,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-STEF2|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-STEF2|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-STEF2|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-STEF2|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-STEF2|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -411,7 +595,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-MOHAA|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-MOHAA|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -419,6 +602,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-MOHAA|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-MOHAA|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-MOHAA|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-MOHAA|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-MOHAA|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -434,7 +619,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-MOHSH|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-MOHSH|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -442,6 +626,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-MOHSH|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-MOHSH|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-MOHSH|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-MOHSH|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-MOHSH|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -457,7 +643,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-MOHBT|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-MOHBT|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -465,6 +650,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-MOHBT|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-MOHBT|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-MOHBT|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-MOHBT|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-MOHBT|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -482,7 +669,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-Q3A|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-Q3A|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -490,6 +676,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-Q3A|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-Q3A|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-Q3A|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-Q3A|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-Q3A|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -509,7 +697,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-RTCWMP|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-RTCWMP|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -517,6 +704,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-RTCWMP|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-RTCWMP|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-RTCWMP|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-RTCWMP|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-RTCWMP|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -536,7 +725,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-RTCWSP|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-RTCWSP|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -544,6 +732,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-RTCWSP|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-RTCWSP|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-RTCWSP|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-RTCWSP|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-RTCWSP|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -563,7 +753,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-WET|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-WET|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -571,6 +760,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-WET|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-WET|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-WET|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-WET|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-WET|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -590,7 +781,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-JK2MP|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-JK2MP|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -598,6 +788,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-JK2MP|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-JK2MP|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-JK2MP|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-JK2MP|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-JK2MP|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -617,7 +809,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -625,6 +816,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -644,7 +837,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-STVOYHM|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-STVOYHM|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -652,6 +844,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-STVOYHM|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-STVOYHM|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-STVOYHM|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-STVOYHM|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-STVOYHM|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -671,7 +865,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-STEF2|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-STEF2|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -679,6 +872,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-STEF2|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-STEF2|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-STEF2|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-STEF2|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-STEF2|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -698,7 +893,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-MOHAA|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-MOHAA|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -706,6 +900,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-MOHAA|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-MOHAA|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-MOHAA|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-MOHAA|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-MOHAA|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -725,7 +921,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-MOHSH|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-MOHSH|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -733,6 +928,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-MOHSH|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-MOHSH|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-MOHSH|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-MOHSH|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-MOHSH|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -752,7 +949,6 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-MOHBT|Win32'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-MOHBT|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
@@ -760,6 +956,8 @@
       <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-MOHBT|x64'">true</TreatAngleIncludeAsExternal>
       <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-MOHBT|x64'">TurnOffAllWarnings</ExternalWarningLevel>
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-MOHBT|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-MOHBT|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-MOHBT|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
