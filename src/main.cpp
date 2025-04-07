@@ -110,10 +110,13 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 			// some engines use this arg/buf/buflen syntax for getting ARGV while others
 			// return the char*, so we use QMM_ARGV to handle both methods automatically
 			QMM_ARGV(0, buf, sizeof(buf));
+
+			// example showing how to use infostrings
 			if (!strcmp(buf, "myinfo")) {
 				char userinfo[MAX_INFO_STRING];
 				g_syscall(G_GET_USERINFO, clientnum, userinfo, sizeof(userinfo));
-				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your infostring is: '%s'\"\n", userinfo));
+				const char* name = QMM_INFOVALUEFORKEY(userinfo, "name");
+				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your name is: '%s'\"\n", name));
 				QMM_RET_SUPERCEDE(1);
 			}
 			// purely an example to show entity/client access and how it might be different per-game
