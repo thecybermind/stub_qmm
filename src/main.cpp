@@ -107,8 +107,8 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 			char buf[16] = "";
 			intptr_t clientnum = args[0];
 
-			// some engines use this arg/buf/buflen syntax for getting ARGV while others
-			// return the char*, so we use QMM_ARGV to handle both methods automatically
+			// some engines use this arg/buf/buflen syntax for G_ARGV while others return
+			// the char*, so we use QMM_ARGV to handle both methods automatically
 			QMM_ARGV(0, buf, sizeof(buf));
 
 			// example showing how to use infostrings
