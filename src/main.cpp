@@ -38,8 +38,8 @@ intptr_t g_vmbase = 0;
 
 // store the game's entity and client info
 gentity_t* g_gents = NULL;
+int g_numgents = 0;
 int g_gentsize = sizeof(gentity_t);
-int g_maxgents = ENTITYNUM_MAX_NORMAL;
 gclient_t* g_clients = NULL;
 int g_clientsize = sizeof(gclient_t);
 
@@ -124,11 +124,11 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 				int right = client->ps.activeItems[ITEM_NAME_WEAPON_RIGHT];
 				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapons are: %d %d\"\n", left, right));
 #else
-	#if defined(GAME_MOHAA) || defined(GAME_MOHSH) || defined(GAME_MOHBT)
+ #if defined(GAME_MOHAA) || defined(GAME_MOHSH) || defined(GAME_MOHBT)
 				int item = client->ps.activeItems[ITEM_WEAPON];
-	#else
+ #else
 				int item = client->ps.weapon;
-	#endif
+ #endif
 				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapon is: %d\"\n", item));
 #endif
 				QMM_RET_SUPERCEDE(1);
@@ -148,6 +148,7 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 	// this is fairly common to store entity/client data for later
 	if (cmd == G_LOCATE_GAME_DATA) {
 		g_gents = (gentity_t*)(args[0]);
+		g_numgents = args[1];
 		g_gentsize = args[2];
 		g_clients = (gclient_t*)(args[3]);
 		g_clientsize = args[4];
