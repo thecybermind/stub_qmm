@@ -150,14 +150,16 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 	// this is fairly common to store entity/client data. the second argument (num gentities) changes
 	// every time a new entity is spawned, so this gets called a lot. no other args should change
-	if (cmd == G_LOCATE_GAME_DATA) {
-		g_gents = (gentity_t*)(args[0]);
-		g_numgents = args[1];
-		g_gentsize = args[2];
-		g_clients = (gclient_t*)(args[3]);
-		g_clientsize = args[4];
+	switch (cmd) {
+		case G_LOCATE_GAME_DATA:
+			g_gents = (gentity_t*)(args[0]);
+			g_numgents = args[1];
+			g_gentsize = args[2];
+			g_clients = (gclient_t*)(args[3]);
+			g_clientsize = args[4];
 
-		g_syscall(G_PRINT, "(STUB_QMM) Entity data stored!\n");
+			g_syscall(G_PRINT, "(STUB_QMM) Entity data stored!\n");
+			break;
 	}
 
 	QMM_RET_IGNORED(1);
