@@ -107,8 +107,8 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 			char buf[16] = "";
 			intptr_t clientnum = args[0];
 
-			// some engines use this arg/buf/buflen syntax for getting ARGV
-			// others return the char*, so we use QMM_ARGV to handle both methods automatically
+			// some engines use this arg/buf/buflen syntax for getting ARGV while others
+			// return the char*, so we use QMM_ARGV to handle both methods automatically
 			QMM_ARGV(0, buf, sizeof(buf));
 			if (!strcmp(buf, "myinfo")) {
 				char userinfo[MAX_INFO_STRING];
@@ -116,7 +116,7 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your infostring is: '%s'\"\n", userinfo));
 				QMM_RET_SUPERCEDE(1);
 			}
-			// purely an example to show entity/client access
+			// purely an example to show entity/client access and how it might be different per-game
 			else if (!strcmp(buf, "myweapon")) {
 				gclient_t* client = CLIENT_FROM_NUM(clientnum);
 #if defined(GAME_STEF2)
@@ -145,7 +145,8 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 	- args = arguments to cmd
 */
 C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
-	// this is fairly common to store entity/client data for later
+	// this is fairly common to store entity/client data. the second argument (num gentities) changes
+	// every time a new entity is spawned, so this gets called a lot. no other args should change
 	if (cmd == G_LOCATE_GAME_DATA) {
 		g_gents = (gentity_t*)(args[0]);
 		g_numgents = args[1];
