@@ -51,9 +51,9 @@ define link_rules
 release-$(1): release32-$(1) release64-$(1)
 debug-$(1): debug32-$(1) debug64-$(1)
 release32-$(1): $(BIN_DIR)/release-$(1)/x86/qmm2.so
-release64-$(1): $(BIN_DIR)/release-$(1)/x86/qmm2_x86_64.so
+release64-$(1): $(BIN_DIR)/release-$(1)/x86_64/qmm2_x86_64.so
 debug32-$(1): $(BIN_DIR)/debug-$(1)/x86/qmm2.so
-debug64-$(1): $(BIN_DIR)/debug-$(1)/x86/qmm2_x86_64.so
+debug64-$(1): $(BIN_DIR)/debug-$(1)/x86_64/qmm2_x86_64.so
 
 $(BIN_DIR)/release-$(1)/x86/qmm2.so: $$(addprefix $(OBJ_DIR)/release-$(1)/x86/,$(OBJ_FILES))
 	mkdir -p $$(@D)
