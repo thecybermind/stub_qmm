@@ -40,7 +40,7 @@ REL_LDFLAGS_64 := $(LDFLAGS)
 DBG_LDFLAGS_32 := $(LDFLAGS) -m32 -g -pg
 DBG_LDFLAGS_64 := $(LDFLAGS) -g -pg
 
-.PHONY: all release debug release32 debug32 release64 debug64 $(addprefix game-,$(GAMES)) $(addprefix release-,$(GAMES)) $(addprefix debug-,$(GAMES))
+.PHONY: all clean release debug release32 debug32 release64 debug64 $(addprefix game-,$(GAMES)) $(addprefix release-,$(GAMES)) $(addprefix debug-,$(GAMES))
 
 all: release debug
 release: release32 release64
