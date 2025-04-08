@@ -7,7 +7,7 @@
 # STUB_QMM Makefile
 
 BIN_32 := stub_qmm.so
-BIN_64 := $(BIN_32)_x86_64.so
+BIN_64 := stub_qmm_x86_64.so
 GAMES := Q3A RTCWMP RTCWSP WET JK2MP JAMP STVOYHM STEF2 MOHAA MOHSH MOHBT
 
 
