@@ -6,6 +6,12 @@
 
 # STUB_QMM Makefile
 
+BIN_32 := stub_qmm.so
+BIN_64 := $(BIN_32)_x86_64.so
+GAMES := Q3A RTCWMP RTCWSP WET JK2MP JAMP STVOYHM STEF2 MOHAA MOHSH MOHBT
+
+
+
 CC := g++
 
 SRC_DIR := src
@@ -34,8 +40,6 @@ REL_LDFLAGS_64 := $(LDFLAGS)
 DBG_LDFLAGS_32 := $(LDFLAGS) -m32 -g -pg
 DBG_LDFLAGS_64 := $(LDFLAGS) -g -pg
 
-GAMES := Q3A RTCWMP RTCWSP WET JK2MP JAMP STVOYHM STEF2 MOHAA MOHSH MOHBT
-
 .PHONY: all release debug release32 debug32 release64 debug64 $(addprefix game-,$(GAMES)) $(addprefix release-,$(GAMES)) $(addprefix debug-,$(GAMES))
 
 all: release debug
@@ -55,19 +59,19 @@ release64-$(1): $(BIN_DIR)/release-$(1)/x86_64/qmm2_x86_64.so
 debug32-$(1): $(BIN_DIR)/debug-$(1)/x86/qmm2.so
 debug64-$(1): $(BIN_DIR)/debug-$(1)/x86_64/qmm2_x86_64.so
 
-$(BIN_DIR)/release-$(1)/x86/qmm2.so: $$(addprefix $(OBJ_DIR)/release-$(1)/x86/,$(OBJ_FILES))
+$(BIN_DIR)/release-$(1)/x86/$(BIN_32): $$(addprefix $(OBJ_DIR)/release-$(1)/x86/,$(OBJ_FILES))
 	mkdir -p $$(@D)
 	$(CC) $(REL_LDFLAGS_32) -o $$@ $(LDLIBS) $$^
 	
-$(BIN_DIR)/release-$(1)/x86_64/qmm2_x86_64.so: $$(addprefix $(OBJ_DIR)/release-$(1)/x86_64/,$(OBJ_FILES))
+$(BIN_DIR)/release-$(1)/x86_64/$(BIN_64): $$(addprefix $(OBJ_DIR)/release-$(1)/x86_64/,$(OBJ_FILES))
 	mkdir -p $$(@D)
 	$(CC) $(REL_LDFLAGS_64) -o $$@ $(LDLIBS) $$^
 	
-$(BIN_DIR)/debug-$(1)/x86/qmm2.so: $$(addprefix $(OBJ_DIR)/debug-$(1)/x86/,$(OBJ_FILES))
+$(BIN_DIR)/debug-$(1)/x86/$(BIN_32): $$(addprefix $(OBJ_DIR)/debug-$(1)/x86/,$(OBJ_FILES))
 	mkdir -p $$(@D)
 	$(CC) $(DBG_LDFLAGS_32) -o $$@ $(LDLIBS) $$^
 	
-$(BIN_DIR)/debug-$(1)/x86_64/qmm2_x86_64.so: $$(addprefix $(OBJ_DIR)/debug-$(1)/x86_64/,$(OBJ_FILES))
+$(BIN_DIR)/debug-$(1)/x86_64/$(BIN_64): $$(addprefix $(OBJ_DIR)/debug-$(1)/x86_64/,$(OBJ_FILES))
 	mkdir -p $$(@D)
 	$(CC) $(DBG_LDFLAGS_64) -o $$@ $(LDLIBS) $$^
 endef
