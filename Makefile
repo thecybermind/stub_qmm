@@ -4,8 +4,6 @@
 # 3-clause BSD license: https://opensource.org/license/bsd-3-clause
 # Created By: Kevin Masterson < cybermind@gmail.com >
 
-# STUB_QMM Makefile
-
 BIN_32 := stub_qmm.so
 BIN_64 := stub_qmm_x86_64.so
 GAMES := Q3A RTCWMP RTCWSP WET JK2MP JAMP STVOYHM STEF2 MOHAA MOHSH MOHBT
