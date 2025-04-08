@@ -34,7 +34,7 @@ REL_LDFLAGS_64 := $(LDFLAGS)
 DBG_LDFLAGS_32 := $(LDFLAGS) -m32 -g -pg
 DBG_LDFLAGS_64 := $(LDFLAGS) -g -pg
 
-GAMES := Q3A RTCWMP RTCWSP WET J2MP JAMP STVOYHM STEF2 MOHAA MOHSH MOHBT
+GAMES := Q3A RTCWMP RTCWSP WET JK2MP JAMP STVOYHM STEF2 MOHAA MOHSH MOHBT
 
 .PHONY: all release debug release32 debug32 release64 debug64 $(addprefix game-,$(GAMES)) $(addprefix release-,$(GAMES)) $(addprefix debug-,$(GAMES))
 
