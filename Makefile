@@ -80,7 +80,7 @@ $(OBJ_DIR)/release-$(1)/x86/%.o: $(SRC_DIR)/%.cpp
 
 $(OBJ_DIR)/release-$(1)/x86_64/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $$(@D)
-	$(CC) $(REL_CPPFLAGS) -DGAME_$(1) $(REL_CFLAGS_64) -c $$< -o $@
+	$(CC) $(REL_CPPFLAGS) -DGAME_$(1) $(REL_CFLAGS_64) -c $$< -o $$@
 
 $(OBJ_DIR)/debug-$(1)/x86/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $$(@D)
