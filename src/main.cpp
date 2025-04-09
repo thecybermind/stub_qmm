@@ -35,6 +35,7 @@ eng_syscall_t g_syscall = NULL;
 mod_vmMain_t g_vmMain = NULL;
 pluginfuncs_t* g_pluginfuncs = NULL;
 intptr_t g_vmbase = 0;
+const intptr_t* g_return = NULL;
 
 // store the game's entity and client info
 gentity_t* g_gents = NULL;
@@ -62,17 +63,14 @@ C_DLLEXPORT void QMM_Query(plugininfo_t** pinfo) {
     - modfunc  = pointer to the mod's vmMain function
     - presult  = pointer to plugin result variable
 	- vmbase   = value to add to pointers passed to the engine from a QVM mod (0 if DLL mod)
-    - reserved = reserved for future use
+    - preturn  = pointer to api return variable
    
    return:
     - 0 = failure, QMM_Detach will be called and plugin will be unloaded
     - 1 = succeed, plugin will be loaded
 */
-C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginres_t* presult, pluginfuncs_t* pluginfuncs, intptr_t vmbase, intptr_t reserved) {
+C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginres_t* presult, pluginfuncs_t* pluginfuncs, intptr_t vmbase, intptr_t* preturn) {
 	QMM_SAVE_VARS();
-
-	// ignore 'reserved' but satisfy unused warnings
-	reserved = 0;
 
 	return 1;
 }
@@ -98,44 +96,43 @@ C_DLLEXPORT void QMM_Detach(intptr_t reserved) {
 	- args = arguments to cmd
 */
 C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
-	switch (cmd) {
-		case GAME_INIT:
-			// example showing writing to QMM log
-			QMM_WRITEQMMLOG(QMM_VARARGS("Stub_QMM loaded! Game engine: %s", QMM_GETGAMEENGINE()), QMMLOG_INFO, "STUB_QMM");
-			break;
-		case GAME_CLIENT_COMMAND:
-			char buf[16] = "";
-			intptr_t clientnum = args[0];
+	if (cmd == GAME_INIT) {
+		// example showing writing to QMM log
+		QMM_WRITEQMMLOG(QMM_VARARGS("Stub_QMM loaded! Game engine: %s", QMM_GETGAMEENGINE()), QMMLOG_INFO, "STUB_QMM");
+	}
+	else if (cmd == GAME_CLIENT_COMMAND) {
+		char buf[16] = "";
+		intptr_t clientnum = args[0];
 
-			// some engines use this arg/buf/buflen syntax for G_ARGV while others return
-			// the char*, so we use QMM_ARGV to handle both methods automatically
-			QMM_ARGV(0, buf, sizeof(buf));
+		// some engines use this arg/buf/buflen syntax for G_ARGV while others return
+		// the char*, so we use QMM_ARGV to handle both methods automatically
+		QMM_ARGV(0, buf, sizeof(buf));
 
-			// example showing how to use infostrings
-			if (!strcmp(buf, "myinfo")) {
-				char userinfo[MAX_INFO_STRING];
-				g_syscall(G_GET_USERINFO, clientnum, userinfo, sizeof(userinfo));
-				const char* name = QMM_INFOVALUEFORKEY(userinfo, "name");
-				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your name is: '%s'\"\n", name));
-				QMM_RET_SUPERCEDE(1);
-			}
-			// purely an example to show entity/client access and how it might be different per-game
-			else if (!strcmp(buf, "myweapon")) {
-				gclient_t* client = CLIENT_FROM_NUM(clientnum);
+		// example showing how to use infostrings
+		if (!strcmp(buf, "myinfo")) {
+			char userinfo[MAX_INFO_STRING];
+			g_syscall(G_GET_USERINFO, clientnum, userinfo, sizeof(userinfo));
+			const char* name = QMM_INFOVALUEFORKEY(userinfo, "name");
+			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your name is: '%s'\"\n", name));
+			QMM_RET_SUPERCEDE(1);
+		}
+		// purely an example to show entity/client access and how it might be different per-game
+		else if (!strcmp(buf, "myweapon")) {
+			gclient_t* client = CLIENT_FROM_NUM(clientnum);
 #if defined(GAME_STEF2)
-				int left = client->ps.activeItems[ITEM_NAME_WEAPON_LEFT];
-				int right = client->ps.activeItems[ITEM_NAME_WEAPON_RIGHT];
-				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapons are: %d %d\"\n", left, right));
+			int left = client->ps.activeItems[ITEM_NAME_WEAPON_LEFT];
+			int right = client->ps.activeItems[ITEM_NAME_WEAPON_RIGHT];
+			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapons are: %d %d\"\n", left, right));
 #else
  #if defined(GAME_MOHAA) || defined(GAME_MOHSH) || defined(GAME_MOHBT)
-				int item = client->ps.activeItems[ITEM_WEAPON];
+			int item = client->ps.activeItems[ITEM_WEAPON];
  #else
-				int item = client->ps.weapon;
+			int item = client->ps.weapon;
  #endif
-				g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapon is: %d\"\n", item));
+			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapon is: %d\"\n", item));
 #endif
-				QMM_RET_SUPERCEDE(1);
-			}
+			QMM_RET_SUPERCEDE(1);
+		}
 	}
 
 	QMM_RET_IGNORED(1);
@@ -150,16 +147,14 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 	// this is fairly common to store entity/client data. the second argument (num gentities) changes
 	// every time a new entity is spawned, so this gets called a lot. no other args should change
-	switch (cmd) {
-		case G_LOCATE_GAME_DATA:
-			g_gents = (gentity_t*)(args[0]);
-			g_numgents = args[1];
-			g_gentsize = args[2];
-			g_clients = (gclient_t*)(args[3]);
-			g_clientsize = args[4];
+	if (cmd == G_LOCATE_GAME_DATA) {
+		g_gents = (gentity_t*)(args[0]);
+		g_numgents = args[1];
+		g_gentsize = args[2];
+		g_clients = (gclient_t*)(args[3]);
+		g_clientsize = args[4];
 
-			g_syscall(G_PRINT, "(STUB_QMM) Entity data stored!\n");
-			break;
+		g_syscall(G_PRINT, "(STUB_QMM) Entity data stored!\n");
 	}
 
 	QMM_RET_IGNORED(1);
@@ -171,6 +166,8 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
    shutdown at this point, and is generally unsafe to call into. You can, however, use some engine functions through syscall.
     - cmd = command like GAME_INIT, GAME_CLIENT_COMMAND, etc. (game-specific)
 	- args = arguments to cmd
+
+   In QMM_vmMain_Post functions, you can access *g_return to get the return value of the actual vmMain call back to the engine
 */
 C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 
@@ -181,8 +178,13 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
    This is called AFTER the engine's syscall function is called (by mod)
     - cmd = command like G_PRINT, G_LOCATE_GAME_DATA, etc. (game-specific)
 	- args = arguments to cmd
+
+   In QMM_syscall_Post functions, you can access *g_return to get the return value of the actual syscall call back to the mod
 */
 C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
+	if (cmd == G_ARGC) {
+		QMM_WRITEQMMLOG(QMM_VARARGS("G_ARGC return value: %d\n", *g_return), QMMLOG_INFO, "STUB_QMM");
+	}
 
 	QMM_RET_IGNORED(1);
 }
