@@ -35,7 +35,7 @@ eng_syscall_t g_syscall = NULL;
 mod_vmMain_t g_vmMain = NULL;
 pluginfuncs_t* g_pluginfuncs = NULL;
 intptr_t g_vmbase = 0;
-const intptr_t* g_return = NULL;
+pluginvars_t* g_pluginvars = NULL;
 
 // store the game's entity and client info
 gentity_t* g_gents = NULL;
@@ -59,17 +59,18 @@ C_DLLEXPORT void QMM_Query(plugininfo_t** pinfo) {
    Keep in mind, this is called during QMM's handling of vmMain(GAME_INIT) *before* it has been routed to the mod,
    so the mod is completely uninitialized at this point, and is generally unsafe to call into. You can, however, use
    some engine functions through syscall.
-    - engfunc  = pointer to the engine's syscall function
-    - modfunc  = pointer to the mod's vmMain function
-    - presult  = pointer to plugin result variable
-	- vmbase   = value to add to pointers passed to the engine from a QVM mod (0 if DLL mod)
-    - preturn  = pointer to api return variable
+    - engfunc     = pointer to the engine's syscall function
+    - modfunc     = pointer to the mod's vmMain function
+    - presult     = pointer to plugin result variable
+	- pluginfuncs = pointer to table of plugin helper function pointers
+	- vmbase      = value to add to pointers passed to the engine from a QVM mod (0 if DLL mod)
+    - pluginvars  = pointer to table of plugin helper variables
    
    return:
     - 0 = failure, QMM_Detach will be called and plugin will be unloaded
     - 1 = succeed, plugin will be loaded
 */
-C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginres_t* presult, pluginfuncs_t* pluginfuncs, intptr_t vmbase, intptr_t* preturn) {
+C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginres_t* presult, pluginfuncs_t* pluginfuncs, intptr_t vmbase, pluginvars_t* pluginvars) {
 	QMM_SAVE_VARS();
 
 	return 1;
@@ -167,7 +168,7 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
     - cmd = command like GAME_INIT, GAME_CLIENT_COMMAND, etc. (game-specific)
 	- args = arguments to cmd
 
-   In QMM_vmMain_Post functions, you can access *g_return to get the return value of the actual vmMain call back to the engine
+   In QMM_vmMain_Post functions, you can access *g_pluginvars->preturn to get the return value of the vmMain call that will be returned back to the engine
 */
 C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 
@@ -179,11 +180,11 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
     - cmd = command like G_PRINT, G_LOCATE_GAME_DATA, etc. (game-specific)
 	- args = arguments to cmd
 
-   In QMM_syscall_Post functions, you can access *g_return to get the return value of the actual syscall call back to the mod
+   In QMM_syscall_Post functions, you can access *g_pluginvars->preturn to get the return value of the syscall call that will be returned back to the mod
 */
 C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
 	if (cmd == G_ARGC) {
-		QMM_WRITEQMMLOG(QMM_VARARGS("G_ARGC return value: %d\n", *g_return), QMMLOG_INFO, "STUB_QMM");
+		QMM_WRITEQMMLOG(QMM_VARARGS("G_ARGC return value: %d\n", *g_pluginvars->preturn), QMMLOG_INFO, "STUB_QMM");
 	}
 
 	QMM_RET_IGNORED(1);
