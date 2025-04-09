@@ -1,5 +1,5 @@
-# STUB_QMM
-Example QMM Plugin  
+# Stub_QMM
+Stub_QMM - Example QMM Plugin  
 Copyright 2024-2025  
 https://github.com/thecybermind/stub_qmm/  
 3-clause BSD license: https://opensource.org/license/bsd-3-clause  
