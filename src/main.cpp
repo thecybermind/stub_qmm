@@ -99,7 +99,7 @@ C_DLLEXPORT void QMM_Detach(intptr_t reserved) {
 C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 	if (cmd == GAME_INIT) {
 		// example showing writing to QMM log
-		QMM_WRITEQMMLOG(QMM_VARARGS("Stub_QMM loaded! Game engine: %s", QMM_GETGAMEENGINE()), QMMLOG_INFO, "STUB_QMM");
+		QMM_WRITEQMMLOG(QMM_VARARGS("Stub_QMM loaded! Game engine: %s\n", QMM_GETGAMEENGINE()), QMMLOG_INFO, "STUB_QMM");
 	}
 	else if (cmd == GAME_CLIENT_COMMAND) {
 		char buf[16] = "";
