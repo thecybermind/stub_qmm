@@ -20,21 +20,17 @@ Created By:
 
 pluginres_t* g_result = nullptr;
 plugininfo_t g_plugininfo = {
+	QMM_PIFV_MAJOR,								// plugin interface version major
+	QMM_PIFV_MINOR,								// plugin interface version minor
 	"STUB_QMM",									// name of plugin
 	STUB_QMM_VERSION,							// version of plugin
 	"Stub/test plugin",							// description of plugin
 	STUB_QMM_BUILDER,							// author of plugin
 	"https://github.com/thecybermind/stub_qmm",	// website of plugin
-	0,											// reserved
-	0,											// reserved
-	0,											// reserved
-	QMM_PIFV_MAJOR,								// plugin interface version major
-	QMM_PIFV_MINOR								// plugin interface version minor
 };
 eng_syscall_t g_syscall = NULL;
 mod_vmMain_t g_vmMain = NULL;
 pluginfuncs_t* g_pluginfuncs = NULL;
-intptr_t g_vmbase = 0;
 pluginvars_t* g_pluginvars = NULL;
 
 // store the game's entity and client info
@@ -70,7 +66,7 @@ C_DLLEXPORT void QMM_Query(plugininfo_t** pinfo) {
     - 0 = failure, QMM_Detach will be called and plugin will be unloaded
     - 1 = succeed, plugin will be loaded
 */
-C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginres_t* presult, pluginfuncs_t* pluginfuncs, intptr_t vmbase, pluginvars_t* pluginvars) {
+C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginres_t* presult, pluginfuncs_t* pluginfuncs, pluginvars_t* pluginvars) {
 	QMM_SAVE_VARS();
 
 	return 1;
@@ -83,9 +79,7 @@ C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginre
    through syscall.
     - reserved = reserved for future use
 */
-C_DLLEXPORT void QMM_Detach(intptr_t reserved) {
-	// ignore 'reserved' but satisfy unused warnings
-	reserved = 0;
+C_DLLEXPORT void QMM_Detach() {
 }
 
 /* QMM_vmMain
