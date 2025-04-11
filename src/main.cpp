@@ -184,7 +184,7 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 */
 C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
 	if (cmd == G_ARGC) {
-		QMM_WRITEQMMLOG(QMM_VARARGS("G_ARGC return value: %d\n", *g_pluginvars->preturn), QMMLOG_INFO, "STUB_QMM");
+		QMM_WRITEQMMLOG(QMM_VARARGS("G_ARGC return value: %d\n", QMM_GET_RETURN(intptr_t)), QMMLOG_INFO, "STUB_QMM");
 	}
 
 	QMM_RET_IGNORED(1);
