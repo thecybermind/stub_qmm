@@ -42,6 +42,14 @@ Created By:
 #include <mohaa/fgame/g_local.h>
 #include <mohaa/fgame/bg_public.h>
 #include <game_mohbt.h>
+#elif defined(GAME_QUAKE2)
+#include <quake2/game/g_local.h>
+#include <game_quake2.h>
+typedef edict_t gentity_t; 
+#elif defined(GAME_Q2R)
+#include <q2r/rerelease/g_local.h>
+#include <game_q2r.h>
+typedef edict_t gentity_t;
 #endif
 
 #endif // __STUB_QMM_GAME_H__

@@ -105,29 +105,38 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 
 		// example showing how to use infostrings
 		if (!strcmp(buf, "myinfo")) {
+#if defined(GAME_Q2R)
+			edict_t* ent = (edict_t*)args[0];
+			char name[MAX_INFO_STRING];
+			g_syscall(G_INFO_VALUEFORKEY, ent->client->pers.userinfo, "name", name, sizeof(name));
+			g_syscall(G_CLIENT_PRINT, ent, PRINT_HIGH, QMM_VARARGS("print \"[STUB_QMM] Your name is: '%s'\"\n", name));
+#elif !defined(GAME_QUAKE2)
 			char userinfo[MAX_INFO_STRING];
 			g_syscall(G_GET_USERINFO, clientnum, userinfo, sizeof(userinfo));
 			const char* name = QMM_INFOVALUEFORKEY(userinfo, "name");
 			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your name is: '%s'\"\n", name));
+#endif // GAME_Q2R
 			QMM_RET_SUPERCEDE(1);
 		}
+#if !defined(GAME_Q2R) && !defined(GAME_QUAKE2)
 		// purely an example to show entity/client access and how it might be different per-game
 		else if (!strcmp(buf, "myweapon")) {
 			gclient_t* client = CLIENT_FROM_NUM(clientnum);
-#if defined(GAME_STEF2)
+ #if defined(GAME_STEF2)
 			int left = client->ps.activeItems[ITEM_NAME_WEAPON_LEFT];
 			int right = client->ps.activeItems[ITEM_NAME_WEAPON_RIGHT];
 			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapons are: %d %d\"\n", left, right));
-#else
- #if defined(GAME_MOHAA) || defined(GAME_MOHSH) || defined(GAME_MOHBT)
-			int item = client->ps.activeItems[ITEM_WEAPON];
  #else
+  #if defined(GAME_MOHAA) || defined(GAME_MOHSH) || defined(GAME_MOHBT)
+			int item = client->ps.activeItems[ITEM_WEAPON];
+  #else
 			int item = client->ps.weapon;
- #endif
+  #endif // MOHAA, MOHSH, MOHBT
 			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapon is: %d\"\n", item));
-#endif
+ #endif // GAME_STEF2
 			QMM_RET_SUPERCEDE(1);
 		}
+#endif // !GAME_Q2R && !GAME_QUAKE2
 	}
 
 	QMM_RET_IGNORED(1);
@@ -142,6 +151,7 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 	// this is fairly common to store entity/client data. the second argument (num gentities) changes
 	// every time a new entity is spawned, so this gets called a lot. no other args should change
+#if !defined(GAME_Q2R) && !defined(GAME_QUAKE2)
 	if (cmd == G_LOCATE_GAME_DATA) {
 		g_gents = (gentity_t*)(args[0]);
 		g_numgents = args[1];
@@ -151,6 +161,7 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 
 		g_syscall(G_PRINT, "(STUB_QMM) Entity data stored!\n");
 	}
+#endif // !GAME_Q2R && !GAME_QUAKE2
 
 	QMM_RET_IGNORED(1);
 }
@@ -165,7 +176,12 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
    In QMM_vmMain_Post functions, you can access *g_pluginvars->preturn to get the return value of the vmMain call that will be returned back to the engine
 */
 C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
-
+#if defined(GAME_Q2R) || defined(GAME_QUAKE2)
+	if (cmd == GAME_INIT) {
+		g_gents = (gentity_t*)g_vmMain(GAMEVP_EDICTS);
+		g_gentsize = (int)g_vmMain(GAMEV_EDICT_SIZE);
+	}
+#endif // GAME_Q2R || GAME_QUAKE2
 	QMM_RET_IGNORED(1);
 }
 
