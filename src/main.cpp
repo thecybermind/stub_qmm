@@ -178,8 +178,8 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 #if defined(GAME_Q2R) || defined(GAME_QUAKE2)
 	if (cmd == GAME_INIT) {
-		g_gents = (gentity_t*)g_vmMain(GAMEVP_EDICTS);
-		g_gentsize = (int)g_vmMain(GAMEV_EDICT_SIZE);
+		g_gents = *(gentity_t**)g_vmMain(GAMEVP_EDICTS);
+		g_gentsize = *(int*)g_vmMain(GAMEV_EDICT_SIZE);
 	}
 #endif // GAME_Q2R || GAME_QUAKE2
 	QMM_RET_IGNORED(1);
