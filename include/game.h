@@ -50,6 +50,8 @@ typedef edict_t gentity_t;
 #include <q2r/rerelease/g_local.h>
 #include <game_q2r.h>
 typedef edict_t gentity_t;
+#elif defined(GAME_SOF2MP)
+#include <sof2mp/game/g_local.h>
 #endif
 
 #endif // __STUB_QMM_GAME_H__

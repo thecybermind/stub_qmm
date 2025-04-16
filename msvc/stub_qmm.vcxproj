@@ -53,6 +53,10 @@
       <Configuration>Debug-Q2R</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-SOF2MP|Win32">
+      <Configuration>Debug-SOF2MP</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release-Q3A|Win32">
       <Configuration>Release-Q3A</Configuration>
       <Platform>Win32</Platform>
@@ -103,6 +107,10 @@
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release-Q2R|Win32">
       <Configuration>Release-Q2R</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-SOF2MP|Win32">
+      <Configuration>Release-SOF2MP</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug-Q3A|x64">
@@ -157,6 +165,10 @@
       <Configuration>Debug-Q2R</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-SOF2MP|x64">
+      <Configuration>Debug-SOF2MP</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release-Q3A|x64">
       <Configuration>Release-Q3A</Configuration>
       <Platform>x64</Platform>
@@ -209,6 +221,10 @@
       <Configuration>Release-Q2R</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-SOF2MP|x64">
+      <Configuration>Release-SOF2MP</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\game.h" />
@@ -232,6 +248,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug-STEF2|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions);_WIN64</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug-STVOYHM|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions);_WIN64</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug-WET|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions);_WIN64</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug-SOF2MP|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions);_WIN64</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions);_WIN64</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-JK2MP|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions);_WIN64</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-MOHAA|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions);_WIN64</PreprocessorDefinitions>
@@ -245,6 +262,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-STEF2|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions);_WIN64</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-STVOYHM|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions);_WIN64</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-WET|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions);_WIN64</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release-SOF2MP|x64'">_UNICODE;UNICODE;%(PreprocessorDefinitions);_WIN64</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -346,6 +364,11 @@
     <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
     <TargetName>$(ProjectName)_QUAKE2</TargetName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-SOF2MP|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+    <TargetName>$(ProjectName)_SOF2MP</TargetName>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
@@ -410,6 +433,11 @@
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
     <TargetName>$(ProjectName)_QUAKE2</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-SOF2MP|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+    <TargetName>$(ProjectName)_SOF2MP</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-JAMP|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
@@ -476,6 +504,11 @@
     <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
     <TargetName>$(ProjectName)_x86_64_QUAKE2</TargetName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-SOF2MP|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+    <TargetName>$(ProjectName)_x86_64_SOF2MP</TargetName>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-JAMP|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
@@ -540,6 +573,11 @@
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
     <TargetName>$(ProjectName)_x86_64_QUAKE2</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-SOF2MP|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+    <TargetName>$(ProjectName)_x86_64_SOF2MP</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug-Q3A'">
     <ClCompile>
@@ -846,6 +884,30 @@
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-QUAKE2|x64'">true</DisableAnalyzeExternal>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-QUAKE2|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-QUAKE2|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug-SOF2MP'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;STUBQMM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);_DEBUG;GAME_SOF2MP</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-SOF2MP|Win32'">true</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-SOF2MP|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
+      <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-SOF2MP|Win32'">true</DisableAnalyzeExternal>
+      <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Debug-SOF2MP|x64'">true</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug-SOF2MP|x64'">TurnOffAllWarnings</ExternalWarningLevel>
+      <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Debug-SOF2MP|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-SOF2MP|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug-SOF2MP|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -1208,6 +1270,34 @@
       <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-QUAKE2|x64'">true</DisableAnalyzeExternal>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-QUAKE2|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-QUAKE2|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release-SOF2MP'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;STUBQMM_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);NDEBUG;GAME_SOF2MP</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-SOF2MP|Win32'">true</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-SOF2MP|Win32'">TurnOffAllWarnings</ExternalWarningLevel>
+      <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-SOF2MP|Win32'">true</DisableAnalyzeExternal>
+      <TreatAngleIncludeAsExternal Condition="'$(Configuration)|$(Platform)'=='Release-SOF2MP|x64'">true</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel Condition="'$(Configuration)|$(Platform)'=='Release-SOF2MP|x64'">TurnOffAllWarnings</ExternalWarningLevel>
+      <DisableAnalyzeExternal Condition="'$(Configuration)|$(Platform)'=='Release-SOF2MP|x64'">true</DisableAnalyzeExternal>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-SOF2MP|Win32'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release-SOF2MP|x64'">../include;../../qmm_sdks;../../qmm2/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
