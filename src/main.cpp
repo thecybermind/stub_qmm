@@ -190,7 +190,8 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
     - cmd = command like G_PRINT, G_LOCATE_GAME_DATA, etc. (game-specific)
 	- args = arguments to cmd
 
-   In QMM_syscall_Post functions, you can access *g_pluginvars->preturn to get the return value of the syscall call that will be returned back to the mod
+   In QMM_syscall_Post functions, you can access *g_pluginvars->preturn / QMM_GET_RETURN to get the return value of the syscall call that will be returned
+   back to the mod
 */
 C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
 	if (cmd == G_ARGC) {
