@@ -110,12 +110,14 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 			char name[MAX_INFO_STRING];
 			g_syscall(G_INFO_VALUEFORKEY, ent->client->pers.userinfo, "name", name, sizeof(name));
 			g_syscall(G_CLIENT_PRINT, ent, PRINT_HIGH, QMM_VARARGS("print \"[STUB_QMM] Your name is: '%s'\"\n", name));
-#elif !defined(GAME_QUAKE2)
+#elif defined(GAME_QUAKE2)
+			(void)clientnum; // suppress unused variable warning for GAME_QUAKE2
+#else
 			char userinfo[MAX_INFO_STRING];
 			g_syscall(G_GET_USERINFO, clientnum, userinfo, sizeof(userinfo));
 			const char* name = QMM_INFOVALUEFORKEY(userinfo, "name");
 			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your name is: '%s'\"\n", name));
-#endif // GAME_Q2R
+#endif // Q2R, QUAKE2
 			QMM_RET_SUPERCEDE(1);
 		}
 #if !defined(GAME_Q2R) && !defined(GAME_QUAKE2)
