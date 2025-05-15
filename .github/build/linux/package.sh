@@ -1,7 +1,7 @@
 #!/bin/sh
 mkdir -p package
 cd package
-rm *
+rm -f *
 cp ../README.md ./
 cp ../LICENSE ./
 
