@@ -105,19 +105,14 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 
 		// example showing how to use infostrings
 		if (!strcmp(buf, "myinfo")) {
-#if defined(GAME_Q2R)
-			edict_t* ent = (edict_t*)args[0];
-			char name[MAX_INFO_STRING];
-			g_syscall(G_INFO_VALUEFORKEY, ent->client->pers.userinfo, "name", name, sizeof(name));
-			g_syscall(G_CLIENT_PRINT, ent, PRINT_HIGH, QMM_VARARGS("print \"[STUB_QMM] Your name is: '%s'\"\n", name));
-#elif defined(GAME_QUAKE2)
-			(void)clientnum; // suppress unused variable warning for GAME_QUAKE2
-#else
 			char userinfo[MAX_INFO_STRING];
 			g_syscall(G_GET_USERINFO, clientnum, userinfo, sizeof(userinfo));
 			const char* name = QMM_INFOVALUEFORKEY(userinfo, "name");
+#if defined(GAME_Q2R) || defined(GAME_QUAKE2)
+			g_syscall(G_CLIENT_PRINT, clientnum, PRINT_HIGH, QMM_VARARGS("[STUB_QMM] Your name is: '%s'\n", name));
+#else
 			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your name is: '%s'\"\n", name));
-#endif // Q2R, QUAKE2
+#endif
 			QMM_RET_SUPERCEDE(1);
 		}
 #if !defined(GAME_Q2R) && !defined(GAME_QUAKE2)
@@ -152,8 +147,8 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 */
 C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 	// this is fairly common to store entity/client data. the second argument (num gentities) changes
-	// every time a new entity is spawned, so this gets called a lot. no other args should change
-#if !defined(GAME_Q2R) && !defined(GAME_QUAKE2)
+	// every time a new entity is spawned, so this gets called a lot. no other args should change after
+	// the first call. for QUAKE2 and Q2R, this is a QMM polyfill call
 	if (cmd == G_LOCATE_GAME_DATA) {
 		g_gents = (gentity_t*)(args[0]);
 		g_numgents = args[1];
@@ -163,7 +158,6 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 
 		g_syscall(G_PRINT, "(STUB_QMM) Entity data stored!\n");
 	}
-#endif // !GAME_Q2R && !GAME_QUAKE2
 
 	QMM_RET_IGNORED(1);
 }
@@ -178,12 +172,7 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
    In QMM_vmMain_Post functions, you can access *g_pluginvars->preturn to get the return value of the vmMain call that will be returned back to the engine
 */
 C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
-#if defined(GAME_Q2R) || defined(GAME_QUAKE2)
-	if (cmd == GAME_INIT) {
-		g_gents = *(gentity_t**)g_vmMain(GAMEVP_EDICTS);
-		g_gentsize = *(int*)g_vmMain(GAMEV_EDICT_SIZE);
-	}
-#endif // GAME_Q2R || GAME_QUAKE2
+
 	QMM_RET_IGNORED(1);
 }
 
