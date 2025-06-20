@@ -28,17 +28,18 @@ plugininfo_t g_plugininfo = {
 	STUB_QMM_BUILDER,							// author of plugin
 	"https://github.com/thecybermind/stub_qmm",	// website of plugin
 };
-eng_syscall_t g_syscall = NULL;
-mod_vmMain_t g_vmMain = NULL;
-pluginfuncs_t* g_pluginfuncs = NULL;
-pluginvars_t* g_pluginvars = NULL;
+eng_syscall_t g_syscall = nullptr;
+mod_vmMain_t g_vmMain = nullptr;
+pluginfuncs_t* g_pluginfuncs = nullptr;
+pluginvars_t* g_pluginvars = nullptr;
 
 // store the game's entity and client info
-gentity_t* g_gents = NULL;
+gentity_t* g_gents = nullptr;
 intptr_t g_numgents = 0;
 intptr_t g_gentsize = sizeof(gentity_t);
-gclient_t* g_clients = NULL;
+gclient_t* g_clients = nullptr;
 intptr_t g_clientsize = sizeof(gclient_t);
+
 
 /* QMM_Query
    This is the first function called by QMM
@@ -49,6 +50,7 @@ C_DLLEXPORT void QMM_Query(plugininfo_t** pinfo) {
 	// give QMM our plugin info struct
 	QMM_GIVE_PINFO();
 }
+
 
 /* QMM_Attach
    This is the second function called by QMM.
@@ -72,6 +74,7 @@ C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginre
 	return 1;
 }
 
+
 /* QMM_Detach
    This is the last function called by QMM. This is called after returning false from QMM_Attach(), or during final shutdown.
    Keep in mind, the shutdown process occurs in QMM's vmMain(GAME_SHUTDOWN) *after* it has been routed to the mod, so the mod
@@ -81,6 +84,7 @@ C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginre
 */
 C_DLLEXPORT void QMM_Detach() {
 }
+
 
 /* QMM_vmMain
    This is called BEFORE the mod's vmMain function is called (by engine).
@@ -139,6 +143,7 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 	QMM_RET_IGNORED(1);
 }
 
+
 /* QMM_syscall
    This is called BEFORE the engine's syscall function is called (by mod).
    You would typically store entity information here in a cmd==G_LOCATE_GAME_DATA check
@@ -162,6 +167,7 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 	QMM_RET_IGNORED(1);
 }
 
+
 /* QMM_vmMain_Post
    This is called AFTER the mod's vmMain function is called (by engine)
    Keep in mind, if cmd==GAME_SHUTDOWN, this function is called *after* it has been routed to the mod, so the mod is completely
@@ -175,6 +181,7 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 
 	QMM_RET_IGNORED(1);
 }
+
 
 /* QMM_syscall_Post
    This is called AFTER the engine's syscall function is called (by mod)
