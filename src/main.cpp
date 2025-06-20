@@ -35,10 +35,10 @@ pluginvars_t* g_pluginvars = NULL;
 
 // store the game's entity and client info
 gentity_t* g_gents = NULL;
-int g_numgents = 0;
-int g_gentsize = sizeof(gentity_t);
+intptr_t g_numgents = 0;
+intptr_t g_gentsize = sizeof(gentity_t);
 gclient_t* g_clients = NULL;
-int g_clientsize = sizeof(gclient_t);
+intptr_t g_clientsize = sizeof(gclient_t);
 
 /* QMM_Query
    This is the first function called by QMM
