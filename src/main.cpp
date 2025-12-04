@@ -153,7 +153,7 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 	// this is fairly common to store entity/client data. the second argument (num gentities) changes
 	// every time a new entity is spawned, so this gets called a lot. no other args should change after
-	// the first call. for QUAKE2 and Q2R, this is a QMM polyfill call
+	// the first call. for QUAKE2, Q2R and JK2SP, this is a QMM polyfill call
 	if (cmd == G_LOCATE_GAME_DATA) {
 		g_gents = (gentity_t*)(args[0]);
 		g_numgents = args[1];
