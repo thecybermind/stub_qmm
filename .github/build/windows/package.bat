@@ -10,9 +10,12 @@ for %%x in (
 		RTCWSP
 		WET
 		JAMP
+		JASP
 		JK2MP
+		JK2SP
 		SOF2MP
 		STVOYHM
+		STVOYSP
 		STEF2
 		MOHAA
 		MOHBT
