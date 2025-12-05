@@ -29,8 +29,16 @@
       <Configuration>Debug-JAMP</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-JASP|Win32">
+      <Configuration>Debug-JASP</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug-STVOYHM|Win32">
       <Configuration>Debug-STVOYHM</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-STVOYSP|Win32">
+      <Configuration>Debug-STVOYSP</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug-STEF2|Win32">
@@ -85,8 +93,16 @@
       <Configuration>Release-JAMP</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+     <ProjectConfiguration Include="Release-JASP|Win32">
+      <Configuration>Release-JASP</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release-STVOYHM|Win32">
       <Configuration>Release-STVOYHM</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+   <ProjectConfiguration Include="Release-STVOYSP|Win32">
+      <Configuration>Release-STVOYSP</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release-STEF2|Win32">
@@ -141,8 +157,16 @@
       <Configuration>Debug-JAMP</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-JASP|x64">
+      <Configuration>Debug-JASP</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug-STVOYHM|x64">
       <Configuration>Debug-STVOYHM</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-STVOYSP|x64">
+      <Configuration>Debug-STVOYSP</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug-STEF2|x64">
@@ -201,8 +225,16 @@
       <Configuration>Release-JAMP</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-JASP|x64">
+      <Configuration>Release-JASP</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release-STVOYHM|x64">
       <Configuration>Release-STVOYHM</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+     <ProjectConfiguration Include="Release-STVOYSP|x64">
+      <Configuration>Release-STVOYSP</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release-STEF2|x64">
@@ -285,6 +317,9 @@
   <PropertyGroup Condition="$(Platform)=='Win32' And $(Configuration.EndsWith('-JAMP'))==true">
     <TargetName>$(ProjectName)_JAMP</TargetName>
   </PropertyGroup>
+  <PropertyGroup Condition="$(Platform)=='Win32' And $(Configuration.EndsWith('-JASP'))==true">
+    <TargetName>$(ProjectName)_JASP</TargetName>
+  </PropertyGroup>
   <PropertyGroup Condition="$(Platform)=='Win32' And $(Configuration.EndsWith('-JK2MP'))==true">
     <TargetName>$(ProjectName)_JK2MP</TargetName>
   </PropertyGroup>
@@ -315,6 +350,9 @@
   <PropertyGroup Condition="$(Platform)=='Win32' And $(Configuration.EndsWith('-STVOYHM'))==true">
     <TargetName>$(ProjectName)_STVOYHM</TargetName>
   </PropertyGroup>
+  <PropertyGroup Condition="$(Platform)=='Win32' And $(Configuration.EndsWith('-STVOYSP'))==true">
+    <TargetName>$(ProjectName)_STVOYSP</TargetName>
+  </PropertyGroup>
   <PropertyGroup Condition="$(Platform)=='Win32' And $(Configuration.EndsWith('-WET'))==true">
     <TargetName>$(ProjectName)_WET</TargetName>
   </PropertyGroup>
@@ -326,6 +364,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="$(Platform)=='x64' And $(Configuration.EndsWith('-JAMP'))==true">
     <TargetName>$(ProjectName)_x86_64_JAMP</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Platform)=='x64' And $(Configuration.EndsWith('-JASP'))==true">
+    <TargetName>$(ProjectName)_x86_64_JASP</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="$(Platform)=='x64' And $(Configuration.EndsWith('-JK2MP'))==true">
     <TargetName>$(ProjectName)_x86_64_JK2MP</TargetName>
@@ -353,6 +394,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="$(Platform)=='x64' And $(Configuration.EndsWith('-STVOYHM'))==true">
     <TargetName>$(ProjectName)_x86_64_STVOYHM</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Platform)=='x64' And $(Configuration.EndsWith('-STVOYSP'))==true">
+    <TargetName>$(ProjectName)_x86_64_STVOYSP</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="$(Platform)=='x64' And $(Configuration.EndsWith('-WET'))==true">
     <TargetName>$(ProjectName)_x86_64_WET</TargetName>
@@ -440,9 +484,19 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions);GAME_JAMP</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="$(Configuration.EndsWith('-JASP'))==true">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);GAME_JASP</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="$(Configuration.EndsWith('-STVOYHM'))==true">
     <ClCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);GAME_STVOYHM</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="$(Configuration.EndsWith('-STVOYSP'))==true">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);GAME_STVOYSP</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="$(Configuration.EndsWith('-STEF2'))==true">

@@ -27,10 +27,20 @@ Created By:
 	#include <game_jk2sp.h>
 #elif defined(GAME_JAMP)
     #include <jamp/game/g_local.h>
+#elif defined(GAME_JASP)
+    #include <jasp/game/q_shared.h>
+    #include <jasp/game/g_local.h>
+    #include <jasp/game/bg_public.h>
+    #include <game_jasp.h>
 #elif defined(GAME_WET)
     #include <wet/game/g_local.h>
 #elif defined(GAME_STVOYHM)
     #include <stvoyhm/game/g_local.h>
+#elif defined(GAME_STVOYSP)
+    #include <stvoysp/game/q_shared.h>
+    #include <stvoysp/game/g_local.h>
+    #include <stvoysp/game/bg_public.h>
+    #include <game_stvoysp.h>
 #elif defined(GAME_STEF2)
     #include <stef2/game/g_local.h>
     #include <stef2/game/bg_public.h>
