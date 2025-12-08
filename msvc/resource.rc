@@ -83,7 +83,7 @@ BEGIN
             VALUE "FileDescription", "stub_qmm " STUB_QMM_OS " " STUB_QMM_ARCH "\0"
             VALUE "FileVersion", STUB_QMM_VERSION "\0"
             VALUE "InternalName", "stub_qmm\0"
-            VALUE "LegalCopyright", "Copyright 2004-?\0"
+            VALUE "LegalCopyright", "Copyright 2004-2025\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "stub_qmm.dll\0"
             VALUE "ProductName", "stub_qmm\0"
