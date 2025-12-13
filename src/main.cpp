@@ -179,7 +179,7 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 */
 C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 
-	return 0;
+	QMM_RET_IGNORED(1);
 }
 
 
@@ -196,5 +196,5 @@ C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
 		QMM_WRITEQMMLOG(QMM_VARARGS("G_ARGC return value: %d\n", QMM_GET_RETURN(intptr_t)), QMMLOG_INFO, "STUB_QMM");
 	}
 
-	return 0;
+	QMM_RET_IGNORED(1);
 }
