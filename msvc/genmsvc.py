@@ -190,7 +190,7 @@ def gen_vcxproj(name, sourcefiles, headerfiles):
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableUAC>false</EnableUAC>
-	</Link>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="$(Configuration.StartsWith('Debug-'))==true">
     <ClCompile>
