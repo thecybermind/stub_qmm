@@ -22,11 +22,12 @@ pluginres_t* g_result = nullptr;
 plugininfo_t g_plugininfo = {
 	QMM_PIFV_MAJOR,								// plugin interface version major
 	QMM_PIFV_MINOR,								// plugin interface version minor
-	"STUB_QMM",									// name of plugin
+	"Stub_QMM",									// name of plugin
 	STUB_QMM_VERSION,							// version of plugin
 	"Stub/test plugin",							// description of plugin
 	STUB_QMM_BUILDER,							// author of plugin
 	"https://github.com/thecybermind/stub_qmm",	// website of plugin
+	"STUB",										// log tag
 };
 eng_syscall_t g_syscall = nullptr;
 mod_vmMain_t g_vmMain = nullptr;
@@ -97,7 +98,7 @@ C_DLLEXPORT void QMM_Detach() {
 C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 	if (cmd == GAME_INIT) {
 		// example showing writing to QMM log
-		QMM_WRITEQMMLOG(QMM_VARARGS("Stub_QMM loaded! Game engine: %s\n", QMM_GETGAMEENGINE()), QMMLOG_INFO, "STUB_QMM");
+		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "Stub_QMM loaded! Game engine: %s\n", QMM_GETGAMEENGINE(PLID)), QMMLOG_INFO);
 	}
 	else if (cmd == GAME_CLIENT_COMMAND) {
 		char buf[16] = "";
@@ -105,17 +106,17 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 
 		// some engines use this arg/buf/buflen syntax for G_ARGV while others return
 		// the char*, so we use QMM_ARGV to handle both methods automatically
-		QMM_ARGV(0, buf, sizeof(buf));
+		QMM_ARGV(PLID, 0, buf, sizeof(buf));
 
 		// example showing how to use infostrings
 		if (!strcmp(buf, "myinfo")) {
 			char userinfo[MAX_INFO_STRING];
 			g_syscall(G_GET_USERINFO, clientnum, userinfo, sizeof(userinfo));
-			const char* name = QMM_INFOVALUEFORKEY(userinfo, "name");
+			const char* name = QMM_INFOVALUEFORKEY(PLID, userinfo, "name");
 #if defined(GAME_Q2R) || defined(GAME_QUAKE2)
-			g_syscall(G_CLIENT_PRINT, clientnum, PRINT_HIGH, QMM_VARARGS("[STUB_QMM] Your name is: '%s'\n", name));
+			g_syscall(G_CLIENT_PRINT, clientnum, PRINT_HIGH, QMM_VARARGS(PLID, "[STUB_QMM] Your name is: '%s'\n", name));
 #else
-			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your name is: '%s'\"\n", name));
+			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS(PLID, "print \"[STUB_QMM] Your name is: '%s'\"\n", name));
 #endif
 			QMM_RET_SUPERCEDE(1);
 		}
@@ -126,14 +127,14 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
  #if defined(GAME_STEF2)
 			int left = client->ps.activeItems[ITEM_NAME_WEAPON_LEFT];
 			int right = client->ps.activeItems[ITEM_NAME_WEAPON_RIGHT];
-			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapons are: %d %d\"\n", left, right));
+			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS(PLID, "print \"[STUB_QMM] Your weapons are: %d %d\"\n", left, right));
  #else
   #if defined(GAME_MOHAA) || defined(GAME_MOHSH) || defined(GAME_MOHBT)
 			int item = client->ps.activeItems[ITEM_WEAPON];
   #else
 			int item = client->ps.weapon;
   #endif // MOHAA, MOHSH, MOHBT
-			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS("print \"[STUB_QMM] Your weapon is: %d\"\n", item));
+			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS(PLID, "print \"[STUB_QMM] Your weapon is: %d\"\n", item));
  #endif // GAME_STEF2
 			QMM_RET_SUPERCEDE(1);
 		}
@@ -160,8 +161,6 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 		g_gentsize = args[2];
 		g_clients = (gclient_t*)(args[3]);
 		g_clientsize = args[4];
-
-		g_syscall(G_PRINT, "(STUB_QMM) Entity data stored!\n");
 	}
 
 	QMM_RET_IGNORED(1);
@@ -193,7 +192,7 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 */
 C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
 	if (cmd == G_ARGC) {
-		QMM_WRITEQMMLOG(QMM_VARARGS("G_ARGC return value: %d\n", QMM_GET_RETURN(intptr_t)), QMMLOG_INFO, "STUB_QMM");
+		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "G_ARGC return value: %d\n", QMM_GET_RETURN(intptr_t)), QMMLOG_INFO);
 	}
 
 	QMM_RET_IGNORED(1);
