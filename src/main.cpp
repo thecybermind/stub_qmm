@@ -177,7 +177,9 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
    In QMM_vmMain_Post functions, you can access *g_pluginvars->preturn to get the return value of the vmMain call that will be returned back to the engine
 */
 C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
-
+	// example of broadcasting a message to other plugins
+	if (cmd == GAME_SHUTDOWN)
+		QMM_PLUGIN_BROADCAST(PLID, "BYE", nullptr, 0);
 	QMM_RET_IGNORED(1);
 }
 
@@ -192,8 +194,16 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 */
 C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
 	if (cmd == G_ARGC) {
-		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "G_ARGC return value: %d\n", QMM_GET_RETURN(intptr_t)), QMMLOG_INFO);
+		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "G_ARGC return value: %d\n", QMM_VAR_RETURN(intptr_t)), QMMLOG_INFO);
 	}
 
 	QMM_RET_IGNORED(1);
+}
+
+
+/* QMM_PluginMessage
+   This is called by other plugins using the QMM_PLUGIN_BROADCAST helper
+*/
+C_DLLEXPORT void QMM_PluginMessage(plid_t from_plid, const char* message, void* buf, intptr_t buflen) {
+	QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "Received plugin message \"%s\" with a %d-byte buffer", message, buflen), QMMLOG_INFO);
 }
