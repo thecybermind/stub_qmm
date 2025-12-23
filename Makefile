@@ -2,7 +2,7 @@
 # Copyright 2004-2025
 # https://github.com/thecybermind/stub_qmm/
 # 3-clause BSD license: https://opensource.org/license/bsd-3-clause
-# Created By: Kevin Masterson < cybermind@gmail.com >
+# Created By: Kevin Masterson < k.m.masterson@gmail.com >
 
 BIN_32 := stub_qmm
 BIN_64 := stub_qmm_x86_64

@@ -5,7 +5,7 @@ https://github.com/thecybermind/stub_qmm/
 3-clause BSD license: https://opensource.org/license/bsd-3-clause
 
 Created By:
-    Kevin Masterson < cybermind@gmail.com >
+    Kevin Masterson < k.m.masterson@gmail.com >
 
 */
 
