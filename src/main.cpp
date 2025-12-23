@@ -113,14 +113,14 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 			char userinfo[MAX_INFO_STRING];
 			g_syscall(G_GET_USERINFO, clientnum, userinfo, sizeof(userinfo));
 			const char* name = QMM_INFOVALUEFORKEY(PLID, userinfo, "name");
-#if defined(GAME_Q2R) || defined(GAME_QUAKE2)
+#if defined(GAME_Q2_ENGINE)
 			g_syscall(G_CLIENT_PRINT, clientnum, PRINT_HIGH, QMM_VARARGS(PLID, "[STUB_QMM] Your name is: '%s'\n", name));
 #else
 			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS(PLID, "print \"[STUB_QMM] Your name is: '%s'\"\n", name));
 #endif
 			QMM_RET_SUPERCEDE(1);
 		}
-#if !defined(GAME_Q2R) && !defined(GAME_QUAKE2)
+#if !defined(GAME_Q2_ENGINE)
 		// purely an example to show entity/client access and how it might be different per-game
 		else if (!strcmp(buf, "myweapon")) {
 			gclient_t* client = CLIENT_FROM_NUM(clientnum);
