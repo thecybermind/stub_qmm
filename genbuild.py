@@ -12,7 +12,7 @@ import sys
 
 from datetime import datetime
 
-games = [ "Q2R" ]
+games = [ ]
 
 builds = [
     "Debug",
@@ -505,6 +505,7 @@ clean:
 
 
 def gen_github_build_linux_package(name):
+    games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(".github/build/linux/package.sh", "w", encoding="utf-8") as f:
         f.write(f"""#!/bin/sh
 mkdir -p package
@@ -513,16 +514,17 @@ rm -f *
 cp ../README.md ./
 cp ../LICENSE ./
 
-while read f; do
+for f in {" ".join(games_no_Q2R)}; do
   cp ../bin/release-$f/x86/{name}_$f.so ./
   cp ../bin/release-$f/x86_64/{name}_x86_64_$f.so ./
-done < ../games.lst
+done
 
 cd ..
 """)
 
 
 def gen_github_build_windows_package(name):
+    games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(".github/build/windows/package.bat", "w", encoding="utf-8") as f:
         f.write(f"""mkdir package
 pushd package
@@ -530,7 +532,7 @@ del /q *
 rem copy ..\\README.md .\\
 rem copy ..\\LICENSE .\\
 
-for /f %%x in (..\\games.lst) do (
+for %%x in ({" ".join(games_no_Q2R)}) do (
          copy ..\\bin\\Release-%%x\\x86\\{name}_%%x.dll .\\
          copy ..\\bin\\Release-%%x\\x64\\{name}_x86_64_%%x.dll .\\     
        )
@@ -540,8 +542,9 @@ popd
 
 
 def gen_github_build_windows_release(name):
+    games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(".github/build/windows/release.bat", "w", encoding="utf-8") as f:
-        f.write(f"""for /f %%x in (games.lst) do (
+        f.write(f"""for %%x in ({" ".join(games_no_Q2R)}) do (
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x86
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x64
        )
@@ -551,8 +554,9 @@ msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-Q2R /p:Platform=x64
 
 
 def gen_github_build_windows_debug(name):
+    games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(".github/build/windows/debug.bat", "w", encoding="utf-8") as f:
-        f.write(f"""for /f %%x in (games.lst) do (
+        f.write(f"""for %%x in ({" ".join(games_no_Q2R)}) do (
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x86
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x64
        )
