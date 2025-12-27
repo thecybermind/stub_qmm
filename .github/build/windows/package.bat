@@ -4,27 +4,9 @@ del /q *
 rem copy ..\README.md .\
 rem copy ..\LICENSE .\
 
-for %%x in (
-        JAMP
-		JASP
-		JK2MP
-		JK2SP
-		MOHAA
-		MOHBT
-		MOHSH
-		QUAKE2
-		Q3A
-		RTCWMP
-		RTCWSP
-		SIN
-		SOF2MP
-		STEF2
-		STVOYHM
-		STVOYSP
-		WET
-       ) do (
+for %%x in (CODMP CODUOMP COD11MP JAMP JASP JK2MP JK2SP MOHAA MOHBT MOHSH QUAKE2 Q3A RTCWMP RTCWSP SIN SOF2MP STEF2 STVOYHM STVOYSP WET) do (
          copy ..\bin\Release-%%x\x86\stub_qmm_%%x.dll .\
-         copy ..\bin\Release-%%x\x64\stub_qmm_x86_64_%%x.dll .\         
+         copy ..\bin\Release-%%x\x64\stub_qmm_x86_64_%%x.dll .\     
        )
-copy ..\bin\Release-Q2R\x64\stub_qmm_x86_64_Q2R.dll .\         
+copy ..\bin\Release-Q2R\x64\stub_qmm_x86_64_Q2R.dll .\
 popd
