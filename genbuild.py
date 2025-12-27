@@ -530,7 +530,6 @@ cd ..
 
 
 def gen_github_build_windows_package(name):
-    games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(".github/build/windows/package.bat", "w", encoding="utf-8") as f:
         f.write(
             f"""mkdir package
@@ -543,36 +542,29 @@ for %%x in ({" ".join(games)}) do (
     copy ..\\bin\\Release-%%x\\x86\\{name}_%%x.dll .\\
     copy ..\\bin\\Release-%%x\\x64\\{name}_x86_64_%%x.dll .\\     
 )
-rem copy ..\\bin\\Release-Q2R\\x64\\{name}_x86_64_Q2R.dll .\\
 popd
 """
         )
 
 
 def gen_github_build_windows_release(name):
-    games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(".github/build/windows/release.bat", "w", encoding="utf-8") as f:
         f.write(
             f"""for %%x in ({" ".join(games)}) do (
     msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x86
     msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x64
 )
-
-rem msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-Q2R /p:Platform=x64
 """
         )
 
 
 def gen_github_build_windows_debug(name):
-    games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(".github/build/windows/debug.bat", "w", encoding="utf-8") as f:
         f.write(
             f"""for %%x in ({" ".join(games)}) do (
     msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x86
     msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x64
 )
-
-rem msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-Q2R /p:Platform=x64
 """
         )
 
