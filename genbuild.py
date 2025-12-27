@@ -572,7 +572,10 @@ def gen_github_build_windows_debug(name):
 def load_games_lst():
     global games
     with open("games.lst", "r", encoding="utf-8") as f:
-        games.extend([line.strip() for line in f])
+        for line in f:
+            line = line.strip()
+            if line:
+                games.append(line)
         games.sort()
 
 
