@@ -14,8 +14,10 @@ Created By:
 
 #if defined(GAME_COD11MP)
     #include <game_cod11mp.h>
-#elif defined(GAME_COD15MP)
-    #include <game_cod15mp.h>
+#elif defined(GAME_CODMP)
+    #include <game_codmp.h>
+#elif defined(GAME_CODUOMP)
+    #include <game_coduomp.h>
 #elif defined(GAME_JAMP)
     #include <jamp/game/g_local.h>
 #elif defined(GAME_JASP)

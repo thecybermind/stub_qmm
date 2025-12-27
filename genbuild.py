@@ -538,10 +538,10 @@ rm -f *
 cp ../README.md ./
 cp ../LICENSE ./
 
-for x in {" ".join(games_no_Q2R)}; do
-  cp ../bin/release-$x/x86/{name}_$x.so ./
-  cp ../bin/release-$x/x86_64/{name}_x86_64_$x.so ./
-done 
+while read f; do
+  cp ../bin/release-$f/x86/{name}_$f.so ./
+  cp ../bin/release-$f/x86_64/{name}_x86_64_$f.so ./
+done < ../games.lst
 
 cd ..
 """)
@@ -556,7 +556,7 @@ del /q *
 rem copy ..\\README.md .\\
 rem copy ..\\LICENSE .\\
 
-for %%x in ({" ".join(games_no_Q2R)}) do (
+for /f %%x in (..\\games.lst) do (
          copy ..\\bin\\Release-%%x\\x86\\{name}_%%x.dll .\\
          copy ..\\bin\\Release-%%x\\x64\\{name}_x86_64_%%x.dll .\\     
        )
@@ -568,7 +568,7 @@ popd
 def gen_github_build_windows_release(name):
     games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(f".github/build/windows/release.bat", "w", encoding="utf-8") as f:
-        f.write(f"""for %%x in ({" ".join(games_no_Q2R)}) do (
+        f.write(f"""for /f %%x in (games.lst) do (
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x86
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x64
        )
@@ -580,7 +580,7 @@ msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-Q2R /p:Platform=x64
 def gen_github_build_windows_debug(name):
     games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(f".github/build/windows/debug.bat", "w", encoding="utf-8") as f:
-        f.write(f"""for %%x in ({" ".join(games_no_Q2R)}) do (
+        f.write(f"""for /f %%x in (games.lst) do (
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x86
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x64
        )
