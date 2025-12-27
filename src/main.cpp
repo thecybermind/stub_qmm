@@ -37,9 +37,9 @@ pluginvars_t* g_pluginvars = nullptr;
 // store the game's entity and client info
 gentity_t* g_gents = nullptr;
 intptr_t g_numgents = 0;
-intptr_t g_gentsize = sizeof(gentity_t);
+intptr_t g_gentsize = 0; //sizeof(gentity_t);
 gclient_t* g_clients = nullptr;
-intptr_t g_clientsize = sizeof(gclient_t);
+intptr_t g_clientsize = 0;// sizeof(gclient_t);
 
 
 /* QMM_Query
@@ -131,6 +131,8 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
  #else
   #if defined(GAME_MOHAA) || defined(GAME_MOHSH) || defined(GAME_MOHBT)
 			int item = client->ps.activeItems[ITEM_WEAPON];
+  #elif defined(GAME_COD11MP) || defined(GAME_COD15MP)
+			int item = 0;
   #else
 			int item = client->ps.weapon;
   #endif // MOHAA, MOHSH, MOHBT

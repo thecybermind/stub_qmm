@@ -13,6 +13,8 @@ import sys
 from datetime import datetime
 
 games = [
+    "COD11MP",
+    "COD15MP",
     "JAMP",
     "JASP",
     "JK2MP",

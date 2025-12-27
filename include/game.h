@@ -12,7 +12,11 @@ Created By:
 #ifndef __STUB_QMM_GAME_H__
 #define __STUB_QMM_GAME_H__
 
-#if defined(GAME_JAMP)
+#if defined(GAME_COD11MP)
+    #include <game_cod11mp.h>
+#elif defined(GAME_COD15MP)
+    #include <game_cod15mp.h>
+#elif defined(GAME_JAMP)
     #include <jamp/game/g_local.h>
 #elif defined(GAME_JASP)
     #include <jasp/game/q_shared.h>
