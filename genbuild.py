@@ -12,29 +12,7 @@ import sys
 
 from datetime import datetime
 
-games = [
-    "CODMP",
-    "CODUOMP",
-    "COD11MP",
-    "JAMP",
-    "JASP",
-    "JK2MP",
-    "JK2SP",
-    "MOHAA",
-    "MOHBT",
-    "MOHSH",
-    "QUAKE2",
-    "Q2R",
-    "Q3A",
-    "RTCWMP",
-    "RTCWSP",
-    "SIN",
-    "SOF2MP",
-    "STEF2",
-    "STVOYHM",
-    "STVOYSP",
-    "WET",
-]
+games = [ "Q2R" ]
 
 builds = [
     "Debug",
@@ -285,7 +263,7 @@ def gen_vcxproj_filters(name, sourcefiles, headerfiles):
 
 def gen_resource(name):
     uname = name.upper()
-    with open(f"msvc/resource.rc", "w", encoding="utf-8") as f:
+    with open("msvc/resource.rc", "w", encoding="utf-8") as f:
         f.write(f"""//Microsoft Developer Studio generated resource script.
 //
 #include "resource.h"
@@ -418,8 +396,6 @@ BIN_32 := {name}
 BIN_64 := {name}_x86_64
 GAMES := {" ".join(games_no_Q2R)}
 
-
-
 CC := g++
 
 SRC_DIR := src
@@ -529,8 +505,7 @@ clean:
 
 
 def gen_github_build_linux_package(name):
-    games_no_Q2R = [game for game in games if game != "Q2R"]
-    with open(f".github/build/linux/package.sh", "w", encoding="utf-8") as f:
+    with open(".github/build/linux/package.sh", "w", encoding="utf-8") as f:
         f.write(f"""#!/bin/sh
 mkdir -p package
 cd package
@@ -548,8 +523,7 @@ cd ..
 
 
 def gen_github_build_windows_package(name):
-    games_no_Q2R = [game for game in games if game != "Q2R"]
-    with open(f".github/build/windows/package.bat", "w", encoding="utf-8") as f:
+    with open(".github/build/windows/package.bat", "w", encoding="utf-8") as f:
         f.write(f"""mkdir package
 pushd package
 del /q *
@@ -566,8 +540,7 @@ popd
 
 
 def gen_github_build_windows_release(name):
-    games_no_Q2R = [game for game in games if game != "Q2R"]
-    with open(f".github/build/windows/release.bat", "w", encoding="utf-8") as f:
+    with open(".github/build/windows/release.bat", "w", encoding="utf-8") as f:
         f.write(f"""for /f %%x in (games.lst) do (
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x86
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x64
@@ -578,8 +551,7 @@ msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-Q2R /p:Platform=x64
 
 
 def gen_github_build_windows_debug(name):
-    games_no_Q2R = [game for game in games if game != "Q2R"]
-    with open(f".github/build/windows/debug.bat", "w", encoding="utf-8") as f:
+    with open(".github/build/windows/debug.bat", "w", encoding="utf-8") as f:
         f.write(f"""for /f %%x in (games.lst) do (
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x86
          msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x64
@@ -587,6 +559,13 @@ def gen_github_build_windows_debug(name):
 
 msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-Q2R /p:Platform=x64
 """)
+
+
+def load_games_lst():
+    global games
+    with open("games.lst", "r", encoding="utf-8") as f:
+        games.extend([line.strip() for line in f])
+        games.sort()
 
 
 def find_files(name):
@@ -614,6 +593,8 @@ def main():
         print(f"Usage:\n{arg0} <projectname>")
         return
     name = sys.argv[1]
+
+    load_games_lst()
 
     # find existing files in vcxproj
     sourcefiles, headerfiles = find_files(name)
