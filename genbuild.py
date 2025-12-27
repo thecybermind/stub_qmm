@@ -12,7 +12,7 @@ import sys
 
 from datetime import datetime
 
-games = [ ]
+games = []
 
 builds = [
     "Debug",
@@ -264,7 +264,8 @@ def gen_vcxproj_filters(name, sourcefiles, headerfiles):
 def gen_resource(name):
     uname = name.upper()
     with open("msvc/resource.rc", "w", encoding="utf-8") as f:
-        f.write(f"""//Microsoft Developer Studio generated resource script.
+        f.write(
+            f"""//Microsoft Developer Studio generated resource script.
 //
 #include "resource.h"
 
@@ -380,13 +381,15 @@ END
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
 
-""")
+"""
+        )
 
 
 def gen_makefile(name):
     games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(f"Makefile", "w", encoding="utf-8") as f:
-        f.write(f"""# STUB_QMM - Example QMM Plugin
+        f.write(
+            f"""# STUB_QMM - Example QMM Plugin
 # Copyright 2004-2025
 # https://github.com/thecybermind/stub_qmm/
 # 3-clause BSD license: https://opensource.org/license/bsd-3-clause
@@ -501,13 +504,15 @@ $(foreach game,$(GAMES),$(eval $(call gen_rules,$(game))))
 
 clean:
 	@$(RM) -rv $(BIN_DIR) $(OBJ_DIR)
-""")
+"""
+        )
 
 
 def gen_github_build_linux_package(name):
     games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(".github/build/linux/package.sh", "w", encoding="utf-8") as f:
-        f.write(f"""#!/bin/sh
+        f.write(
+            f"""#!/bin/sh
 mkdir -p package
 cd package
 rm -f *
@@ -520,49 +525,56 @@ for f in {" ".join(games_no_Q2R)}; do
 done
 
 cd ..
-""")
+"""
+        )
 
 
 def gen_github_build_windows_package(name):
     games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(".github/build/windows/package.bat", "w", encoding="utf-8") as f:
-        f.write(f"""mkdir package
+        f.write(
+            f"""mkdir package
 pushd package
 del /q *
 rem copy ..\\README.md .\\
 rem copy ..\\LICENSE .\\
 
-for %%x in ({" ".join(games_no_Q2R)}) do (
-         copy ..\\bin\\Release-%%x\\x86\\{name}_%%x.dll .\\
-         copy ..\\bin\\Release-%%x\\x64\\{name}_x86_64_%%x.dll .\\     
-       )
-copy ..\\bin\\Release-Q2R\\x64\\{name}_x86_64_Q2R.dll .\\
+for %%x in ({" ".join(games)}) do (
+    copy ..\\bin\\Release-%%x\\x86\\{name}_%%x.dll .\\
+    copy ..\\bin\\Release-%%x\\x64\\{name}_x86_64_%%x.dll .\\     
+)
+rem copy ..\\bin\\Release-Q2R\\x64\\{name}_x86_64_Q2R.dll .\\
 popd
-""")
+"""
+        )
 
 
 def gen_github_build_windows_release(name):
     games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(".github/build/windows/release.bat", "w", encoding="utf-8") as f:
-        f.write(f"""for %%x in ({" ".join(games_no_Q2R)}) do (
-         msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x86
-         msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x64
-       )
+        f.write(
+            f"""for %%x in ({" ".join(games)}) do (
+    msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x86
+    msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-%%x /p:Platform=x64
+)
 
-msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-Q2R /p:Platform=x64
-""")
+rem msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Release-Q2R /p:Platform=x64
+"""
+        )
 
 
 def gen_github_build_windows_debug(name):
     games_no_Q2R = [game for game in games if game != "Q2R"]
     with open(".github/build/windows/debug.bat", "w", encoding="utf-8") as f:
-        f.write(f"""for %%x in ({" ".join(games_no_Q2R)}) do (
-         msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x86
-         msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x64
-       )
+        f.write(
+            f"""for %%x in ({" ".join(games)}) do (
+    msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x86
+    msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-%%x /p:Platform=x64
+)
 
-msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-Q2R /p:Platform=x64
-""")
+rem msbuild .\\msvc\\{name}.vcxproj /p:Configuration=Debug-Q2R /p:Platform=x64
+"""
+        )
 
 
 def load_games_lst():
@@ -611,11 +623,11 @@ def main():
 
     gen_vcxproj(name, sourcefiles, headerfiles)
     gen_vcxproj_filters(name, sourcefiles, headerfiles)
-    
+
     gen_resource(name)
-    
+
     gen_makefile(name)
-    
+
     gen_github_build_linux_package(name)
     gen_github_build_windows_package(name)
     gen_github_build_windows_release(name)
