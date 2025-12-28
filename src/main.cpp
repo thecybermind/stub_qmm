@@ -37,9 +37,9 @@ pluginvars_t* g_pluginvars = nullptr;
 // store the game's entity and client info
 gentity_t* g_gents = nullptr;
 intptr_t g_numgents = 0;
-intptr_t g_gentsize = 0; //sizeof(gentity_t);
+intptr_t g_gentsize = 0;
 gclient_t* g_clients = nullptr;
-intptr_t g_clientsize = 0;// sizeof(gclient_t);
+intptr_t g_clientsize = 0;
 
 
 /* QMM_Query
