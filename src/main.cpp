@@ -131,8 +131,6 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
  #else
   #if defined(GAME_MOHAA) || defined(GAME_MOHSH) || defined(GAME_MOHBT)
 			int item = client->ps.activeItems[ITEM_WEAPON];
-  #elif defined(GAME_COD11MP) || defined(GAME_CODUOMP) || defined(GAME_CODMP)
-			int item = 0;
   #else
 			int item = client->ps.weapon;
   #endif // MOHAA, MOHSH, MOHBT
