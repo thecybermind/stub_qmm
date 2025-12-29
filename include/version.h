@@ -39,6 +39,6 @@ Created By:
 
 #define STUB_QMM_VERSION_DWORD	STUB_QMM_VERSION_MAJOR , STUB_QMM_VERSION_MINOR , STUB_QMM_VERSION_REV , 0
 #define STUB_QMM_COMPILE		__TIME__ " " __DATE__
-#define STUB_QMM_BUILDER		"cybermind"
+#define STUB_QMM_BUILDER		"Kevin Masterson"
 
 #endif // __STUB_QMM_VERSION_H__
