@@ -62,7 +62,6 @@ C_DLLEXPORT void QMM_Query(plugininfo_t** pinfo) {
     - modfunc     = pointer to the mod's vmMain function
     - presult     = pointer to plugin result variable
 	- pluginfuncs = pointer to table of plugin helper function pointers
-	- vmbase      = value to add to pointers passed to the engine from a QVM mod (0 if DLL mod)
     - pluginvars  = pointer to table of plugin helper variables
    
    return:
@@ -97,51 +96,11 @@ C_DLLEXPORT void QMM_Detach() {
 */
 C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 	if (cmd == GAME_INIT) {
-		// example showing writing to QMM log
+		// example showing writing to QMM log on initialization
 		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "Stub_QMM loaded! Game engine: %s\n", QMM_GETGAMEENGINE(PLID)), QMMLOG_INFO);
 	}
-	else if (cmd == GAME_CLIENT_COMMAND) {
-		char buf[16] = "";
-		intptr_t clientnum = args[0];
 
-		// some engines use this arg/buf/buflen syntax for G_ARGV while others return
-		// the char*, so we use QMM_ARGV to handle both methods automatically
-		QMM_ARGV(PLID, 0, buf, sizeof(buf));
-
-		// example showing how to use infostrings
-		if (!strcmp(buf, "myinfo")) {
-			char userinfo[MAX_INFO_STRING];
-			g_syscall(G_GET_USERINFO, clientnum, userinfo, sizeof(userinfo));
-			const char* name = QMM_INFOVALUEFORKEY(PLID, userinfo, "name");
-#if defined(GAME_Q2_ENGINE)
-			g_syscall(G_CLIENT_PRINT, clientnum, PRINT_HIGH, QMM_VARARGS(PLID, "[STUB_QMM] Your name is: '%s'\n", name));
-#else
-			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS(PLID, "print \"[STUB_QMM] Your name is: '%s'\"\n", name));
-#endif
-			QMM_RET_SUPERCEDE(1);
-		}
-#if !defined(GAME_Q2_ENGINE)
-		// purely an example to show entity/client access and how it might be different per-game
-		else if (!strcmp(buf, "myweapon")) {
-			gclient_t* client = CLIENT_FROM_NUM(clientnum);
- #if defined(GAME_STEF2)
-			int left = client->ps.activeItems[ITEM_NAME_WEAPON_LEFT];
-			int right = client->ps.activeItems[ITEM_NAME_WEAPON_RIGHT];
-			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS(PLID, "print \"[STUB_QMM] Your weapons are: %d %d\"\n", left, right));
- #else
-  #if defined(GAME_MOHAA) || defined(GAME_MOHSH) || defined(GAME_MOHBT)
-			int item = client->ps.activeItems[ITEM_WEAPON];
-  #else
-			int item = client->ps.weapon;
-  #endif // MOHAA, MOHSH, MOHBT
-			g_syscall(G_SEND_SERVER_COMMAND, clientnum, QMM_VARARGS(PLID, "print \"[STUB_QMM] Your weapon is: %d\"\n", item));
- #endif // GAME_STEF2
-			QMM_RET_SUPERCEDE(1);
-		}
-#endif // !GAME_Q2R && !GAME_QUAKE2
-	}
-
-	QMM_RET_IGNORED(1);
+	QMM_RET_IGNORED(0);
 }
 
 
@@ -152,9 +111,9 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 	- args = arguments to cmd
 */
 C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
-	// this is fairly common to store entity/client data. the second argument (num gentities) changes
-	// every time a new entity is spawned, so this gets called a lot. no other args should change after
-	// the first call. for QUAKE2, Q2R and JK2SP, this is a QMM polyfill call
+	// this is fairly common to store entity/client data. the second argument (num gentities) changes every time
+	// a new entity is spawned, so this gets called a lot. no other args should change after the first call.
+	// for QUAKE2, Q2R, SIN, STVOYSP, JASP, and JK2SP engines, this is a QMM polyfill call when it detects changes
 	if (cmd == G_LOCATE_GAME_DATA) {
 		g_gents = (gentity_t*)(args[0]);
 		g_numgents = args[1];
@@ -163,7 +122,7 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 		g_clientsize = args[4];
 	}
 
-	QMM_RET_IGNORED(1);
+	QMM_RET_IGNORED(0);
 }
 
 
@@ -177,10 +136,8 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
    In QMM_vmMain_Post functions, you can access *g_pluginvars->preturn to get the return value of the vmMain call that will be returned back to the engine
 */
 C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
-	// example of broadcasting a message to other plugins
-	if (cmd == GAME_SHUTDOWN)
-		QMM_PLUGIN_BROADCAST(PLID, "BYE", nullptr, 0);
-	QMM_RET_IGNORED(1);
+
+	QMM_RET_IGNORED(0);
 }
 
 
@@ -189,15 +146,12 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
     - cmd = command like G_PRINT, G_LOCATE_GAME_DATA, etc. (game-specific)
 	- args = arguments to cmd
 
-   In QMM_syscall_Post functions, you can access *g_pluginvars->preturn / QMM_GET_RETURN to get the return value of the syscall call that will be returned
+   In QMM_syscall_Post functions, you can access *g_pluginvars->preturn / QMM_VAR_RETURN to get the return value of the syscall call that will be returned
    back to the mod
 */
 C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
-	if (cmd == G_ARGC) {
-		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "G_ARGC return value: %d\n", QMM_VAR_RETURN(intptr_t)), QMMLOG_INFO);
-	}
 
-	QMM_RET_IGNORED(1);
+	QMM_RET_IGNORED(0);
 }
 
 
@@ -205,5 +159,4 @@ C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
    This is called by other plugins using the QMM_PLUGIN_BROADCAST helper
 */
 C_DLLEXPORT void QMM_PluginMessage(plid_t from_plid, const char* message, void* buf, intptr_t buflen) {
-	QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "Received plugin message \"%s\" with a %d-byte buffer", message, buflen), QMMLOG_INFO);
 }
