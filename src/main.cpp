@@ -100,6 +100,11 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "Stub_QMM loaded! Game engine: %s\n", QMM_GETGAMEENGINE(PLID)), QMMLOG_INFO);
 	}
 
+	const char* msgname = QMM_MODMSGNAME(PLID, cmd);
+	intptr_t current_return_value = QMM_VAR_RETURN(intptr_t);
+	pluginres_t highest_result = QMM_VAR_HIGH_RES();
+	QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain({}) current return value: {} highest result: {}\n", msgname, current_return_value, highest_result), QMMLOG_TRACE);
+
 	QMM_RET_IGNORED(0);
 }
 
@@ -122,6 +127,11 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 		g_clientsize = args[4];
 	}
 
+	const char* msgname = QMM_ENGMSGNAME(PLID, cmd);
+	intptr_t current_return_value = QMM_VAR_RETURN(intptr_t);
+	pluginres_t highest_result = QMM_VAR_HIGH_RES();
+	QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_syscall({}) current return value: {} highest result: {}\n", msgname, current_return_value, highest_result), QMMLOG_TRACE);
+
 	QMM_RET_IGNORED(0);
 }
 
@@ -136,6 +146,11 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
    In QMM_vmMain_Post functions, you can access *g_pluginvars->preturn to get the return value of the vmMain call that will be returned back to the engine
 */
 C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
+	const char* msgname = QMM_MODMSGNAME(PLID, cmd);
+	intptr_t current_return_value = QMM_VAR_RETURN(intptr_t);
+	intptr_t original_return_value = QMM_VAR_ORIG_RETURN(intptr_t);
+	pluginres_t highest_result = QMM_VAR_HIGH_RES();
+	QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post({}) current return value: {} original return value: {} highest result: {}\n", msgname, current_return_value, original_return_value, highest_result), QMMLOG_TRACE);
 
 	QMM_RET_IGNORED(0);
 }
@@ -150,6 +165,11 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
    back to the mod
 */
 C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
+	const char* msgname = QMM_ENGMSGNAME(PLID, cmd);
+	intptr_t current_return_value = QMM_VAR_RETURN(intptr_t);
+	intptr_t original_return_value = QMM_VAR_ORIG_RETURN(intptr_t);
+	pluginres_t highest_result = QMM_VAR_HIGH_RES();
+	QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_syscall_Post({}) current return value: {} original return value: {} highest result: {}\n", msgname, current_return_value, original_return_value, highest_result), QMMLOG_TRACE);
 
 	QMM_RET_IGNORED(0);
 }
@@ -159,4 +179,5 @@ C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
    This is called by other plugins using the QMM_PLUGIN_BROADCAST helper
 */
 C_DLLEXPORT void QMM_PluginMessage(plid_t from_plid, const char* message, void* buf, intptr_t buflen) {
+	QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_PluginMessage(\"{}\", {}, {})", message, buf, buflen), QMMLOG_TRACE);
 }
