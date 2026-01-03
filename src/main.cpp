@@ -197,7 +197,7 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 		intptr_t clientNum = args[0];
 #if defined(GAME_CLIENT_COMMAND_HAS_ENT)
 		if (clientNum)
-			clientNum = ((gentity_t*)clientNum)->s.number - 1;
+			clientNum = ((gentity_t*)clientNum)->s.number;
 #endif
 		if (cmd == GAME_CLIENT_CONNECT) {
 // these games return a bool rather than a string
@@ -316,7 +316,7 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 		intptr_t clientNum = args[0];
 #if defined(GAME_CLIENT_COMMAND_HAS_ENT)
 		if (clientNum)
-			clientNum = ((gentity_t*)clientNum)->s.number - 1;
+			clientNum = ((gentity_t*)clientNum)->s.number;
 #endif
 		if (cmd == GAME_CLIENT_CONNECT) {
 // these games return a bool rather than a string
