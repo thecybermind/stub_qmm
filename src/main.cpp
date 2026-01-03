@@ -319,8 +319,8 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 			clientNum = ((gentity_t*)clientNum)->s.number;
 #endif
 		if (cmd == GAME_CLIENT_CONNECT) {
-// these games return a bool rather than a string
-#if defined(GAME_CLIENT_COMMAND_HAS_ENT)
+// some games return a bool rather than a string
+#if defined(GAME_CLIENT_CONNECT_RETURNS_BOOL)
 			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, %d) :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, clientNum, current_return_value, original_return_value, highest_result), loglevel);
 #else
 			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, %d) :: current return value: \"%s\" :: original return value: \"%s\" :: highest result: %s\n", msgname, clientNum, (const char*)current_return_value, (const char*)original_return_value, highest_result), loglevel);
