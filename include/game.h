@@ -16,16 +16,20 @@ Created By:
     #include <cod11mp/bgame/bg_local.h>
     #include <cod11mp/bgame/bg_public.h>
     #include <cod11mp/game/g_public.h>
+    #include <game_cod11mp.h>
 #elif defined(GAME_CODMP)
     #include <codmp/bgame/bg_local.h>
     #include <codmp/bgame/bg_public.h>
     #include <codmp/game/g_public.h>
+    #include <game_codmp.h>
 #elif defined(GAME_CODUOMP)
     #include <coduomp/bgame/bg_local.h>
     #include <coduomp/bgame/bg_public.h>
     #include <coduomp/game/g_public.h>
+    #include <game_coduomp.h>
 #elif defined(GAME_JAMP)
     #include <jamp/game/g_local.h>
+    #include <game_jamp.h>
 #elif defined(GAME_JASP)
     #include <jasp/game/q_shared.h>
     #include <jasp/game/g_local.h>
@@ -35,6 +39,7 @@ Created By:
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
 #elif defined(GAME_JK2MP)
     #include <jk2mp/game/g_local.h>
+    #include <game_jk2mp.h>
 #elif defined(GAME_JK2SP)
     #include <jk2sp/game/q_shared.h>
     #include <jk2sp/game/g_local.h>
@@ -47,14 +52,12 @@ Created By:
     #include <mohaa/fgame/bg_public.h>
     #include <game_mohaa.h>
     #define GAME_ARGV_RETURN
-    #define GAME_HAS_ARGS
     #define GAME_CLIENT_COMMAND_HAS_ENT
 #elif defined(GAME_MOHBT)
     #include <mohaa/fgame/g_local.h>
     #include <mohaa/fgame/bg_public.h>
     #include <game_mohbt.h>
     #define GAME_ARGV_RETURN
-    #define GAME_HAS_ARGS
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
 #elif defined(GAME_MOHSH)
@@ -62,7 +65,6 @@ Created By:
     #include <mohsh/fgame/bg_public.h>
     #include <game_mohsh.h>
     #define GAME_ARGV_RETURN
-    #define GAME_HAS_ARGS
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
 #elif defined(GAME_QUAKE2)
@@ -70,7 +72,6 @@ Created By:
     #include <game_quake2.h>
     #define GAME_Q2_ENGINE
     #define GAME_ARGV_RETURN
-    #define GAME_HAS_ARGS
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
@@ -79,38 +80,40 @@ Created By:
     #include <game_q2r.h>
     #define GAME_Q2_ENGINE
     #define GAME_ARGV_RETURN
-    #define GAME_HAS_ARGS
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
 #elif defined(GAME_Q3A)
     #include <q3a/game/g_local.h>
+    #include <game_q3a.h>
 #elif defined(GAME_RTCWMP)
     #include <rtcwmp/game/g_local.h>
+    #include <game_rtcwmp.h>
 #elif defined(GAME_RTCWSP)
     #include <rtcwsp/game/g_local.h>
+    #include <game_rtcwsp.h>
 #elif defined(GAME_SIN)
     #include <sin/game/g_local.h>
     #include <game_sin.h>
     #define GAME_Q2_ENGINE
     #define GAME_ARGV_RETURN
-    #define GAME_HAS_ARGS
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
 #elif defined(GAME_SOF2MP)
     #include <sof2mp/game/g_local.h>
+    #include <game_sof2mp.h>
 #elif defined(GAME_STEF2)
     #include <stef2/game/g_local.h>
     #include <stef2/game/bg_public.h>
     #include <game_stef2.h>
     #define GAME_ARGV_RETURN
-    #define GAME_HAS_ARGS
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
 #elif defined(GAME_STVOYHM)
     #include <stvoyhm/game/g_local.h>
+    #include <game_stvoyhm.h>
 #elif defined(GAME_STVOYSP)
     #include <stvoysp/game/q_shared.h>
     #include <stvoysp/game/g_local.h>
@@ -120,6 +123,7 @@ Created By:
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
 #elif defined(GAME_WET)
     #include <wet/game/g_local.h>
+    #include <game_wet.h>
 #endif
 
 #endif // __STUB_QMM_GAME_H__

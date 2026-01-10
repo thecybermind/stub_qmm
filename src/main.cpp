@@ -195,13 +195,14 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 	else if (cmd == GAME_CLIENT_CONNECT || cmd == GAME_CLIENT_COMMAND || cmd == GAME_CLIENT_BEGIN ||
 		cmd == GAME_CLIENT_USERINFO_CHANGED || cmd == GAME_CLIENT_DISCONNECT || cmd == GAME_CLIENT_THINK) {
 		intptr_t clientNum = args[0];
+// some games pass entity pointers to GAME_CLIENT_ messages instead of ints
 #if defined(GAME_CLIENT_COMMAND_HAS_ENT)
 		if (clientNum)
-			clientNum = ((gentity_t*)clientNum)->s.number;
+			clientNum = NUM_FROM_ENT(clientNum) + 1;
 #endif
 		if (cmd == GAME_CLIENT_CONNECT) {
 // these games return a bool rather than a string
-#if defined(GAME_CLIENT_COMMAND_HAS_ENT)
+#if defined(GAME_CLIENT_CONNECT_RETURNS_BOOL)
 			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain(%s, %d) :: current return value: %d :: highest result: %s\n", msgname, clientNum, current_return_value, highest_result), loglevel);
 #else
 			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain(%s, %d) :: current return value: \"%s\" :: highest result: %s\n", msgname, clientNum, (char*)current_return_value, highest_result), loglevel);
@@ -314,9 +315,10 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 	else if (cmd == GAME_CLIENT_CONNECT || cmd == GAME_CLIENT_COMMAND || cmd == GAME_CLIENT_BEGIN ||
 		cmd == GAME_CLIENT_USERINFO_CHANGED || cmd == GAME_CLIENT_DISCONNECT || cmd == GAME_CLIENT_THINK) {
 		intptr_t clientNum = args[0];
+// some games pass entity pointers to GAME_CLIENT_ messages instead of ints
 #if defined(GAME_CLIENT_COMMAND_HAS_ENT)
 		if (clientNum)
-			clientNum = ((gentity_t*)clientNum)->s.number;
+			clientNum = NUM_FROM_ENT(clientNum) + 1;
 #endif
 		if (cmd == GAME_CLIENT_CONNECT) {
 // some games return a bool rather than a string
@@ -373,11 +375,9 @@ C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
 		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_syscall_Post(%s, %d, \"%s\") :: highest result: %s\n", msgname, args[0], (char*)args[1], highest_result), loglevel);
 #endif
 	}
-#if defined(GAME_HAS_ARGS)
 	else if (cmd == G_ARGS) {
 		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_syscall_Post(%s) :: current return value: \"%s\" :: original return value: \"%s\" :: highest result: %s\n", msgname, (char*)current_return_value, (char*)original_return_value, highest_result), loglevel);
 	}
-#endif
 	else if (cmd == G_GET_ENTITY_TOKEN || cmd == G_CVAR_VARIABLE_INTEGER_VALUE || cmd == G_FS_FOPEN_FILE) {
 		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_syscall_Post(%s, \"%s\") :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, (const char*)args[0], current_return_value, original_return_value, highest_result), loglevel);
 	}
