@@ -215,6 +215,8 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain(%s, %d) :: highest result: %s\n", msgname, clientNum, highest_result), loglevel);
 		}
 	}
+// mapname is the first argument to SpawnEntities or Init in all games with this feature flag
+// MOH?? have a SpawnEntities function but no mapname
 #if defined(GAME_HAS_SPAWN_ENTITIES_MAPNAME)
 	else if (cmd == GAME_SPAWN_ENTITIES) {
 		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain(%s, \"%s\") :: highest result: %s\n", msgname, (char*)args[0], highest_result), loglevel);
@@ -335,6 +337,8 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
 			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, %d) :: highest result: %s\n", msgname, clientNum, highest_result), loglevel);
 		}
 	}
+// mapname is the first argument to SpawnEntities or Init in all games with this feature flag
+// MOH?? have a SpawnEntities function but no mapname
 #if defined(GAME_HAS_SPAWN_ENTITIES_MAPNAME)
 	else if (cmd == GAME_SPAWN_ENTITIES) {
 		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, \"%s\") :: highest result: %s\n", msgname, (char*)args[0], highest_result), loglevel);
