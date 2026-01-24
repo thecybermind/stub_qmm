@@ -9,8 +9,8 @@ Created By:
 
 */
 
-#ifndef __STUB_QMM_GAME_H__
-#define __STUB_QMM_GAME_H__
+#ifndef STUB_QMM_GAME_H
+#define STUB_QMM_GAME_H
 
 #if defined(GAME_COD11MP)
     #include <cod11mp/bgame/bg_local.h>
@@ -147,4 +147,4 @@ Created By:
     #define GAME_STR "WET"
 #endif
 
-#endif // __STUB_QMM_GAME_H__
+#endif // STUB_QMM_GAME_H
