@@ -44,10 +44,6 @@ intptr_t g_clientsize = 0;
 
 // log level to use for all trace logging
 const int loglevel = QMMLOG_INFO;
-// should we ignore syscalls coming from hotpath mod functions (GAME_RUN_FRAME, etc)?
-bool ignore_hotpath_syscalls = true;
-// flag for above
-bool is_ignoring_syscalls = false;
 
 // return a string for each pplugin result value
 const char* plugin_result_to_str(pluginres_t res) {
@@ -114,13 +110,17 @@ char* str_escape(const char* str) {
 
 	char f;
 
-	char* find = strpbrk(buf, "\n\r");
+	char* find = strpbrk(buf, "\n\r%");
 	while (find) {
-		f = (*find == '\n' ? 'n' : 'r');
-		*find = '\0';
-		strncpyz(buf, QMM_VARARGS(PLID, "%s\\%c%s", buf, f, find+1), sizeof(buf));
-
-		find = strpbrk(buf, "\n\r");
+		if (*find == '%') {
+			*find = '@';
+		}
+		else {
+			f = (*find == '\n' ? 'n' : 'r');
+			*find = '\0';
+			strncpyz(buf, QMM_VARARGS(PLID, "%s\\%c%s", buf, f, find + 1), sizeof(buf));
+		}
+		find = strpbrk(find, "\n\r");
 	}
 
 	return buf;
@@ -183,11 +183,21 @@ C_DLLEXPORT void QMM_Detach() {
     - cmd  = command like GAME_INIT, GAME_CLIENT_COMMAND, etc. (game-specific)
 	- args = arguments to cmd
 */
+static intptr_t last_cmd = -1;
+static bool is_ignoring_syscalls = false;
 C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 	if (cmd == GAME_INIT) {
 		// example showing writing to QMM log on initialization
 		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "Stub_QMM loaded! Game engine: %s\n", QMM_GETGAMEENGINE(PLID)), QMMLOG_INFO);
 	}
+
+	// ignore repeated GAME_RUN_FRAME calls
+	if (last_cmd == cmd && cmd == GAME_RUN_FRAME) {
+		is_ignoring_syscalls = true;
+		last_cmd = cmd;
+		QMM_RET_IGNORED(0);
+	}
+	last_cmd = cmd;
 
 	const char* msgname = QMM_MODMSGNAME(PLID, cmd);
 	intptr_t current_return_value = QMM_VAR_RETURN(intptr_t);
@@ -230,20 +240,70 @@ C_DLLEXPORT intptr_t QMM_vmMain(intptr_t cmd, intptr_t* args) {
 		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain(%s) :: current return value: %d :: highest result: %s\n", msgname, current_return_value, highest_result), loglevel);
 	}
 
-	// if this is a hotpath vmmain call, ignore syscalls coming from it
-	if (ignore_hotpath_syscalls && (false
-		|| cmd == GAME_RUN_FRAME
-		|| cmd == GAME_CLIENT_THINK
-#if defined(GAME_JAMP) || defined(GAME_JK2MP) || defined(GAME_Q3A) || defined(GAME_RTCWMP) || defined(GAME_RTCWSP) || defined(GAME_SOF2MP) || defined(GAME_STVOYHM) || defined(GAME_WET) 
-		|| cmd == BOTAI_START_FRAME
-#elif defined(GAME_STEF2) || defined(GAME_Q2R)
-		|| cmd == GAME_PREP_FRAME
-#elif defined(GAME_MOHAA) || defined(GAME_MOHBT) || defined(GAME_MOHSH)
-		|| cmd == GAME_PREP_FRAME
-		|| cmd == GAME_BOTTHINK
+	QMM_RET_IGNORED(0);
+}
+
+
+/* QMM_vmMain_Post
+   This is called AFTER the mod's vmMain function is called (by engine)
+   Keep in mind, if cmd==GAME_SHUTDOWN, this function is called *after* it has been routed to the mod, so the mod is completely
+   shutdown at this point, and is generally unsafe to call into. You can, however, use some engine functions through syscall.
+	- cmd = command like GAME_INIT, GAME_CLIENT_COMMAND, etc. (game-specific)
+	- args = arguments to cmd
+
+   In QMM_vmMain_Post functions, you can access *g_pluginvars->preturn to get the return value of the vmMain call that will be returned back to the engine
+*/
+C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
+	if (is_ignoring_syscalls) {
+		// end ignoring syscalls
+		is_ignoring_syscalls = false;
+		QMM_RET_IGNORED(0);
+	}
+
+	const char* msgname = QMM_MODMSGNAME(PLID, cmd);
+	intptr_t current_return_value = QMM_VAR_RETURN(intptr_t);
+	intptr_t original_return_value = QMM_VAR_ORIG_RETURN(intptr_t);
+	const char* highest_result = plugin_result_to_str(QMM_VAR_HIGH_RES());
+
+	if (cmd == GAME_CONSOLE_COMMAND) {
+		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s) :: args: \"%s\" :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, get_args(), current_return_value, original_return_value, highest_result), loglevel);
+	}
+	else if (cmd == GAME_CLIENT_CONNECT || cmd == GAME_CLIENT_COMMAND || cmd == GAME_CLIENT_BEGIN ||
+		cmd == GAME_CLIENT_USERINFO_CHANGED || cmd == GAME_CLIENT_DISCONNECT || cmd == GAME_CLIENT_THINK) {
+		intptr_t clientNum = args[0];
+		// some games pass entity pointers to GAME_CLIENT_ messages instead of ints
+#if defined(GAME_CLIENT_COMMAND_HAS_ENT)
+		if (clientNum)
+			clientNum = NUM_FROM_ENT(clientNum) + 1;
 #endif
-		))
-		is_ignoring_syscalls = true;
+		if (cmd == GAME_CLIENT_CONNECT) {
+			// some games return a bool rather than a string
+#if defined(GAME_CLIENT_CONNECT_RETURNS_BOOL)
+			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, %d) :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, clientNum, current_return_value, original_return_value, highest_result), loglevel);
+#else
+			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, %d) :: current return value: \"%s\" :: original return value: \"%s\" :: highest result: %s\n", msgname, clientNum, (const char*)current_return_value, (const char*)original_return_value, highest_result), loglevel);
+#endif
+		}
+		else if (cmd == GAME_CLIENT_COMMAND) {
+			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, %d) :: args: \"%s\" :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, clientNum, get_args(), current_return_value, original_return_value, highest_result), loglevel);
+		}
+		else {
+			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, %d) :: highest result: %s\n", msgname, clientNum, highest_result), loglevel);
+		}
+	}
+	// mapname is the first argument to SpawnEntities or Init in all games with this feature flag
+	// MOH?? have a SpawnEntities function but no mapname
+#if defined(GAME_HAS_SPAWN_ENTITIES_MAPNAME)
+	else if (cmd == GAME_SPAWN_ENTITIES) {
+		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, \"%s\") :: highest result: %s\n", msgname, (char*)args[0], highest_result), loglevel);
+	}
+#endif
+	else {
+		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s) :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, current_return_value, original_return_value, highest_result), loglevel);
+	}
+
+	// end ignoring syscalls
+	is_ignoring_syscalls = false;
 
 	QMM_RET_IGNORED(0);
 }
@@ -295,65 +355,6 @@ C_DLLEXPORT intptr_t QMM_syscall(intptr_t cmd, intptr_t* args) {
 	else {
 		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_syscall(%s) :: current return value: %d :: highest result: %s\n", msgname, current_return_value, highest_result), loglevel);
 	}
-
-	QMM_RET_IGNORED(0);
-}
-
-
-/* QMM_vmMain_Post
-   This is called AFTER the mod's vmMain function is called (by engine)
-   Keep in mind, if cmd==GAME_SHUTDOWN, this function is called *after* it has been routed to the mod, so the mod is completely
-   shutdown at this point, and is generally unsafe to call into. You can, however, use some engine functions through syscall.
-    - cmd = command like GAME_INIT, GAME_CLIENT_COMMAND, etc. (game-specific)
-	- args = arguments to cmd
-
-   In QMM_vmMain_Post functions, you can access *g_pluginvars->preturn to get the return value of the vmMain call that will be returned back to the engine
-*/
-C_DLLEXPORT intptr_t QMM_vmMain_Post(intptr_t cmd, intptr_t* args) {
-	const char* msgname = QMM_MODMSGNAME(PLID, cmd);
-	intptr_t current_return_value = QMM_VAR_RETURN(intptr_t);
-	intptr_t original_return_value = QMM_VAR_ORIG_RETURN(intptr_t);
-	const char* highest_result = plugin_result_to_str(QMM_VAR_HIGH_RES());
-
-	if (cmd == GAME_CONSOLE_COMMAND) {
-		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s) :: args: \"%s\" :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, get_args(), current_return_value, original_return_value, highest_result), loglevel);
-	}
-	else if (cmd == GAME_CLIENT_CONNECT || cmd == GAME_CLIENT_COMMAND || cmd == GAME_CLIENT_BEGIN ||
-		cmd == GAME_CLIENT_USERINFO_CHANGED || cmd == GAME_CLIENT_DISCONNECT || cmd == GAME_CLIENT_THINK) {
-		intptr_t clientNum = args[0];
-// some games pass entity pointers to GAME_CLIENT_ messages instead of ints
-#if defined(GAME_CLIENT_COMMAND_HAS_ENT)
-		if (clientNum)
-			clientNum = NUM_FROM_ENT(clientNum) + 1;
-#endif
-		if (cmd == GAME_CLIENT_CONNECT) {
-// some games return a bool rather than a string
-#if defined(GAME_CLIENT_CONNECT_RETURNS_BOOL)
-			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, %d) :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, clientNum, current_return_value, original_return_value, highest_result), loglevel);
-#else
-			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, %d) :: current return value: \"%s\" :: original return value: \"%s\" :: highest result: %s\n", msgname, clientNum, (const char*)current_return_value, (const char*)original_return_value, highest_result), loglevel);
-#endif
-		}
-		else if (cmd == GAME_CLIENT_COMMAND) {
-			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, %d) :: args: \"%s\" :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, clientNum, get_args(), current_return_value, original_return_value, highest_result), loglevel);
-		}
-		else {
-			QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, %d) :: highest result: %s\n", msgname, clientNum, highest_result), loglevel);
-		}
-	}
-// mapname is the first argument to SpawnEntities or Init in all games with this feature flag
-// MOH?? have a SpawnEntities function but no mapname
-#if defined(GAME_HAS_SPAWN_ENTITIES_MAPNAME)
-	else if (cmd == GAME_SPAWN_ENTITIES) {
-		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s, \"%s\") :: highest result: %s\n", msgname, (char*)args[0], highest_result), loglevel);
-	}
-#endif
-	else {
-		QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_vmMain_Post(%s) :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, current_return_value, original_return_value, highest_result), loglevel);
-	}
-
-	// end ignoring syscalls
-	is_ignoring_syscalls = false;
 
 	QMM_RET_IGNORED(0);
 }
@@ -412,6 +413,6 @@ C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
 /* QMM_PluginMessage
    This is called by other plugins using the QMM_PLUGIN_BROADCAST helper
 */
-C_DLLEXPORT void QMM_PluginMessage(plid_t from_plid, const char* message, void* buf, intptr_t buflen) {
-	QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_PluginMessage(\"%s\", %p, %d)", message, buf, buflen), loglevel);
+C_DLLEXPORT void QMM_PluginMessage(plid_t from_plid, const char* message, void* buf, intptr_t buflen, int is_broadcast) {
+	QMM_WRITEQMMLOG(PLID, QMM_VARARGS(PLID, "QMM_PluginMessage(\"%s\", %p, %d, %d)", message, buf, buflen, is_broadcast), loglevel);
 }
