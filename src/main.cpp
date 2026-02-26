@@ -18,8 +18,8 @@ Created By:
 
 #include <string.h>
 
-pluginres_t* g_result = nullptr;
-plugininfo_t g_plugininfo = {
+plugin_res* g_result = nullptr;
+plugin_info g_plugininfo = {
 	QMM_PIFV_MAJOR,								// plugin interface version major
 	QMM_PIFV_MINOR,								// plugin interface version minor
 	"Stub_QMM",									// name of plugin
@@ -29,10 +29,10 @@ plugininfo_t g_plugininfo = {
 	"https://github.com/thecybermind/stub_qmm",	// website of plugin
 	"STUB",										// log tag
 };
-eng_syscall_t g_syscall = nullptr;
-mod_vmMain_t g_vmMain = nullptr;
-pluginfuncs_t* g_pluginfuncs = nullptr;
-pluginvars_t* g_pluginvars = nullptr;
+eng_syscall g_syscall = nullptr;
+mod_vmMain g_vmMain = nullptr;
+plugin_funcs* g_pluginfuncs = nullptr;
+plugin_vars* g_pluginvars = nullptr;
 
 // store the game's entity and client info
 gentity_t* g_gents = nullptr;
@@ -46,7 +46,7 @@ intptr_t g_clientsize = 0;
 const int loglevel = QMMLOG_INFO;
 
 // return a string for each pplugin result value
-const char* plugin_result_to_str(pluginres_t res) {
+const char* plugin_result_to_str(plugin_res res) {
 	switch (res) {
 		case QMM_UNUSED:
 			return "QMM_UNUSED";
@@ -132,7 +132,7 @@ char* str_escape(const char* str) {
    Do not do anything here that requires shutdown routines, as there is no equivalent called at shutdown
     - pinfo = address of a pointer in QMM to this plugin's plugininfo struct
 */
-C_DLLEXPORT void QMM_Query(plugininfo_t** pinfo) {
+C_DLLEXPORT void QMM_Query(plugin_info** pinfo) {
 	// give QMM our plugin info struct
 	QMM_GIVE_PINFO();
 }
@@ -153,7 +153,7 @@ C_DLLEXPORT void QMM_Query(plugininfo_t** pinfo) {
     - 0 = failure, QMM_Detach will be called and plugin will be unloaded
     - 1 = succeed, plugin will be loaded
 */
-C_DLLEXPORT int QMM_Attach(eng_syscall_t engfunc, mod_vmMain_t modfunc, pluginres_t* presult, pluginfuncs_t* pluginfuncs, pluginvars_t* pluginvars) {
+C_DLLEXPORT int QMM_Attach(eng_syscall engfunc, mod_vmMain modfunc, plugin_res* presult, plugin_funcs* pluginfuncs, plugin_vars* pluginvars) {
 	QMM_SAVE_VARS();
 
 	// make sure this DLL is loaded only in the right engine
@@ -413,6 +413,6 @@ C_DLLEXPORT intptr_t QMM_syscall_Post(intptr_t cmd, intptr_t* args) {
 /* QMM_PluginMessage
    This is called by other plugins using the QMM_PLUGIN_BROADCAST helper
 */
-C_DLLEXPORT void QMM_PluginMessage(plid_t from_plid, const char* message, void* buf, intptr_t buflen, int is_broadcast) {
+C_DLLEXPORT void QMM_PluginMessage(plugin_id from_plid, const char* message, void* buf, intptr_t buflen, int is_broadcast) {
 	QMM_WRITEQMMLOG(QMM_VARARGS("QMM_PluginMessage(\"%s\", %p, %d, %d)", message, buf, buflen, is_broadcast), loglevel);
 }
