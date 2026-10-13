@@ -111,7 +111,6 @@ Created By:
     #include <sof2sp/g_public.h>
     #include <game_sof2sp.h>
     #define GAME_CLIENT_USERINFO_CHANGED -9999 // just needs to be a msg number that won't exist so it won't compare true
-    #define GAME_STR "SOF2SP"
 #elif defined(GAME_STEF2)
     #include <stef2/game/g_local.h>
     #include <stef2/game/bg_public.h>
@@ -120,11 +119,9 @@ Created By:
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
-    #define GAME_STR "STEF2"
 #elif defined(GAME_STVOYHM)
     #include <stvoyhm/game/g_local.h>
     #include <game_stvoyhm.h>
-    #define GAME_STR "STVOYHM"
 #elif defined(GAME_STVOYSP)
     #include <stvoysp/game/q_shared.h>
     #include <stvoysp/game/g_local.h>
@@ -132,11 +129,9 @@ Created By:
     #include <game_stvoysp.h>
     #define GAME_ARGV_RETURN
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
-    #define GAME_STR "STVOYSP"
 #elif defined(GAME_WET)
     #include <wet/game/g_local.h>
     #include <game_wet.h>
-    #define GAME_STR "WET"
 #endif
 
 #endif // STUB_QMM_GAME_H
