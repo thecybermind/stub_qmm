@@ -17,23 +17,19 @@ Created By:
     #include <cod11mp/bgame/bg_public.h>
     #include <cod11mp/game/g_public.h>
     #include <game_cod11mp.h>
-    #define GAME_STR "COD11MP"
 #elif defined(GAME_CODMP)
     #include <codmp/bgame/bg_local.h>
     #include <codmp/bgame/bg_public.h>
     #include <codmp/game/g_public.h>
     #include <game_codmp.h>
-    #define GAME_STR "CODMP"
 #elif defined(GAME_CODUOMP)
     #include <coduomp/bgame/bg_local.h>
     #include <coduomp/bgame/bg_public.h>
     #include <coduomp/game/g_public.h>
     #include <game_coduomp.h>
-    #define GAME_STR "CODUOMP"
 #elif defined(GAME_JAMP)
     #include <jamp/game/g_local.h>
     #include <game_jamp.h>
-    #define GAME_STR "JAMP"
 #elif defined(GAME_JASP)
     #include <jasp/game/q_shared.h>
     #include <jasp/game/g_local.h>
@@ -41,26 +37,22 @@ Created By:
     #include <game_jasp.h>
     #define GAME_ARGV_RETURN
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
-    #define GAME_STR "JASP"
 #elif defined(GAME_JK2MP)
     #include <jk2mp/game/g_local.h>
     #include <game_jk2mp.h>
-    #define GAME_STR "JK2MP"
 #elif defined(GAME_JK2SP)
     #include <jk2sp/game/q_shared.h>
     #include <jk2sp/game/g_local.h>
     #include <jk2sp/game/bg_public.h>
-	#include <game_jk2sp.h>
+    #include <game_jk2sp.h>
     #define GAME_ARGV_RETURN
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
-    #define GAME_STR "JK2SP"
 #elif defined(GAME_MOHAA)
     #include <mohaa/fgame/g_local.h>
     #include <mohaa/fgame/bg_public.h>
     #include <game_mohaa.h>
     #define GAME_ARGV_RETURN
     #define GAME_CLIENT_COMMAND_HAS_ENT
-    #define GAME_STR "MOHAA"
 #elif defined(GAME_MOHBT)
     #include <mohaa/fgame/g_local.h>
     #include <mohaa/fgame/bg_public.h>
@@ -68,7 +60,6 @@ Created By:
     #define GAME_ARGV_RETURN
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
-    #define GAME_STR "MOHBT"
 #elif defined(GAME_MOHSH)
     #include <mohsh/fgame/g_local.h>
     #include <mohsh/fgame/bg_public.h>
@@ -76,7 +67,6 @@ Created By:
     #define GAME_ARGV_RETURN
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
-    #define GAME_STR "MOHSH"
 #elif defined(GAME_QUAKE2)
     #include <quake2/game/g_local.h>
     #include <game_quake2.h>
@@ -85,7 +75,6 @@ Created By:
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
-    #define GAME_STR "QUAKE2"
 #elif defined(GAME_Q2R)
     #include <q2r/rerelease/g_local.h>
     #include <game_q2r.h>
@@ -94,19 +83,15 @@ Created By:
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
-    #define GAME_STR "Q2R"
 #elif defined(GAME_Q3A)
     #include <q3a/game/g_local.h>
     #include <game_q3a.h>
-    #define GAME_STR "Q3A"
 #elif defined(GAME_RTCWMP)
     #include <rtcwmp/game/g_local.h>
     #include <game_rtcwmp.h>
-    #define GAME_STR "RTCWMP"
 #elif defined(GAME_RTCWSP)
     #include <rtcwsp/game/g_local.h>
     #include <game_rtcwsp.h>
-    #define GAME_STR "RTCWSP"
 #elif defined(GAME_SIN)
     #include <sin/game/g_local.h>
     #include <game_sin.h>
@@ -115,11 +100,17 @@ Created By:
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
     #define GAME_CLIENT_CONNECT_RETURNS_BOOL
-    #define GAME_STR "SIN"
+#elif defined(GAME_SOF)
+    #include <sof/gamecpp/g_local.h>
+    #include <game_sof.h>
+    #define GAME_Q2_ENGINE
+    #define GAME_ARGV_RETURN
+    #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
+    #define GAME_CLIENT_COMMAND_HAS_ENT
+    #define GAME_CLIENT_CONNECT_RETURNS_BOOL
 #elif defined(GAME_SOF2MP)
     #include <sof2mp/game/g_local.h>
     #include <game_sof2mp.h>
-    #define GAME_STR "SOF2MP"
 #elif defined(GAME_SOF2SP)
     #include <sof2sp/g_public.h>
     #include <game_sof2sp.h>
