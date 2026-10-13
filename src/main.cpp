@@ -209,7 +209,7 @@ C_DLLEXPORT intptr_t QMM_vmMain(result_vars* results, intptr_t cmd, intptr_t* ar
     const char* highest_result = plugin_result_to_str(QMM_VAR_HIGH_RES());
 
     if (cmd == GAME_CONSOLE_COMMAND) {
-        QMM_WRITEQMMLOG(loglevel, "QMM_vmMain(%s(%d)) :: args: \"%s\" :: current return value: %d :: highest result: %s\n", msgname, cmd, str_escape(get_args()), current_return_value, highest_result);
+        QMM_WRITEQMMLOG(loglevel, "QMM_vmMain(%s(%d)) :: args: \"%s\" :: final return value: %d :: highest result: %s\n", msgname, cmd, str_escape(get_args()), current_return_value, highest_result);
     }
     else if (cmd == GAME_CLIENT_CONNECT || cmd == GAME_CLIENT_COMMAND || cmd == GAME_CLIENT_BEGIN ||
         cmd == GAME_CLIENT_USERINFO_CHANGED || cmd == GAME_CLIENT_DISCONNECT || cmd == GAME_CLIENT_THINK) {
@@ -222,13 +222,13 @@ C_DLLEXPORT intptr_t QMM_vmMain(result_vars* results, intptr_t cmd, intptr_t* ar
         if (cmd == GAME_CLIENT_CONNECT) {
 // these games return a bool rather than a string
 #if defined(GAME_CLIENT_CONNECT_RETURNS_BOOL)
-            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain(%s(%d), %d) :: current return value: %d :: highest result: %s\n", msgname, cmd, clientNum, current_return_value, highest_result);
+            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain(%s(%d), %d) :: final return value: %d :: highest result: %s\n", msgname, cmd, clientNum, current_return_value, highest_result);
 #else
-            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain(%s(%d), %d) :: current return value: \"%s\" :: highest result: %s\n", msgname, cmd, clientNum, (char*)current_return_value, highest_result);
+            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain(%s(%d), %d) :: final return value: \"%s\" :: highest result: %s\n", msgname, cmd, clientNum, (char*)current_return_value, highest_result);
 #endif
         }
         else if (cmd == GAME_CLIENT_COMMAND) {
-            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain(%s(%d), %d) :: args: \"%s\" :: current return value: %d :: highest result: %s\n", msgname, cmd, clientNum, str_escape(get_args()), current_return_value, highest_result);
+            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain(%s(%d), %d) :: args: \"%s\" :: final return value: %d :: highest result: %s\n", msgname, cmd, clientNum, str_escape(get_args()), current_return_value, highest_result);
         }
         else {
             QMM_WRITEQMMLOG(loglevel, "QMM_vmMain(%s(%d), %d) :: highest result: %s\n", msgname, cmd, clientNum, highest_result);
@@ -242,7 +242,7 @@ C_DLLEXPORT intptr_t QMM_vmMain(result_vars* results, intptr_t cmd, intptr_t* ar
     }
 #endif
     else {
-        QMM_WRITEQMMLOG(loglevel, "QMM_vmMain(%s(%d)) :: current return value: %d :: highest result: %s\n", msgname, cmd, current_return_value, highest_result);
+        QMM_WRITEQMMLOG(loglevel, "QMM_vmMain(%s(%d)) :: final return value: %d :: highest result: %s\n", msgname, cmd, current_return_value, highest_result);
     }
 
     QMM_RET_IGNORED(0);
@@ -272,7 +272,7 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(result_vars* results, intptr_t cmd, intptr_
     const char* highest_result = plugin_result_to_str(QMM_VAR_HIGH_RES());
 
     if (cmd == GAME_CONSOLE_COMMAND) {
-        QMM_WRITEQMMLOG(loglevel, "QMM_vmMain_Post(%s(%d)) :: args: \"%s\" :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, cmd, get_args(), current_return_value, original_return_value, highest_result);
+        QMM_WRITEQMMLOG(loglevel, "QMM_vmMain_Post(%s(%d)) :: args: \"%s\" :: final return value: %d :: real return value: %d :: highest result: %s\n", msgname, cmd, get_args(), current_return_value, original_return_value, highest_result);
     }
     else if (cmd == GAME_CLIENT_CONNECT || cmd == GAME_CLIENT_COMMAND || cmd == GAME_CLIENT_BEGIN ||
         cmd == GAME_CLIENT_USERINFO_CHANGED || cmd == GAME_CLIENT_DISCONNECT || cmd == GAME_CLIENT_THINK) {
@@ -285,13 +285,13 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(result_vars* results, intptr_t cmd, intptr_
         if (cmd == GAME_CLIENT_CONNECT) {
             // some games return a bool rather than a string
 #if defined(GAME_CLIENT_CONNECT_RETURNS_BOOL)
-            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain_Post(%s(%d), %d) :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, cmd, clientNum, current_return_value, original_return_value, highest_result);
+            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain_Post(%s(%d), %d) :: final return value: %d :: real return value: %d :: highest result: %s\n", msgname, cmd, clientNum, current_return_value, original_return_value, highest_result);
 #else
-            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain_Post(%s(%d), %d) :: current return value: \"%s\" :: original return value: \"%s\" :: highest result: %s\n", msgname, cmd, clientNum, (const char*)current_return_value, (const char*)original_return_value, highest_result);
+            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain_Post(%s(%d), %d) :: final return value: \"%s\" :: real return value: \"%s\" :: highest result: %s\n", msgname, cmd, clientNum, (const char*)current_return_value, (const char*)original_return_value, highest_result);
 #endif
         }
         else if (cmd == GAME_CLIENT_COMMAND) {
-            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain_Post(%s(%d), %d) :: args: \"%s\" :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, cmd, clientNum, get_args(), current_return_value, original_return_value, highest_result);
+            QMM_WRITEQMMLOG(loglevel, "QMM_vmMain_Post(%s(%d), %d) :: args: \"%s\" :: final return value: %d :: real return value: %d :: highest result: %s\n", msgname, cmd, clientNum, get_args(), current_return_value, original_return_value, highest_result);
         }
         else {
             QMM_WRITEQMMLOG(loglevel, "QMM_vmMain_Post(%s(%d), %d) :: highest result: %s\n", msgname, cmd, clientNum, highest_result);
@@ -305,7 +305,7 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(result_vars* results, intptr_t cmd, intptr_
     }
 #endif
     else {
-        QMM_WRITEQMMLOG(loglevel, "QMM_vmMain_Post(%s(%d)) :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, cmd, current_return_value, original_return_value, highest_result);
+        QMM_WRITEQMMLOG(loglevel, "QMM_vmMain_Post(%s(%d)) :: final return value: %d :: real return value: %d :: highest result: %s\n", msgname, cmd, current_return_value, original_return_value, highest_result);
     }
 
     // end ignoring syscalls
@@ -347,7 +347,7 @@ C_DLLEXPORT intptr_t QMM_syscall(result_vars* results, intptr_t cmd, intptr_t* a
         QMM_WRITEQMMLOG(loglevel, "QMM_syscall(%s(%d), \"%s\") :: highest result: %s\n", msgname, cmd, (char*)args[0], highest_result);
     }
     else if (cmd == G_CVAR_VARIABLE_INTEGER_VALUE || cmd == G_FS_FOPEN_FILE) {
-        QMM_WRITEQMMLOG(loglevel, "QMM_syscall(%s(%d), \"%s\") :: current return value: %d :: highest result: %s\n", msgname, cmd, (char*)args[0], current_return_value, highest_result);
+        QMM_WRITEQMMLOG(loglevel, "QMM_syscall(%s(%d), \"%s\") :: final return value: %d :: highest result: %s\n", msgname, cmd, (char*)args[0], current_return_value, highest_result);
     }
     else if (cmd == G_CVAR_SET) {
         QMM_WRITEQMMLOG(loglevel, "QMM_syscall(%s(%d), \"%s\", \"%s\") :: highest result: %s\n", msgname, cmd, (char*)args[0], (char*)args[1], highest_result);
@@ -359,7 +359,7 @@ C_DLLEXPORT intptr_t QMM_syscall(result_vars* results, intptr_t cmd, intptr_t* a
         QMM_WRITEQMMLOG(loglevel, "QMM_syscall(%s(%d), %p, %d, %d, %p, %d) :: highest result: %s\n", msgname, cmd, (void*)args[0], args[1], args[2], (void*)args[3], args[4], highest_result);
     }
     else {
-        QMM_WRITEQMMLOG(loglevel, "QMM_syscall(%s(%d)) :: current return value: %d :: highest result: %s\n", msgname, cmd, current_return_value, highest_result);
+        QMM_WRITEQMMLOG(loglevel, "QMM_syscall(%s(%d)) :: final return value: %d :: highest result: %s\n", msgname, cmd, current_return_value, highest_result);
     }
 
     QMM_RET_IGNORED(0);
@@ -385,16 +385,16 @@ C_DLLEXPORT intptr_t QMM_syscall_Post(result_vars* results, intptr_t cmd, intptr
 
     if (cmd == G_ARGV) {
 #if defined(GAME_ARGV_RETURN)
-        QMM_WRITEQMMLOG(loglevel, "QMM_syscall_Post(%s(%d), %d) :: current return value: \"%s\" :: original return value: \"%s\" :: highest result: %s\n", msgname, cmd, args[0], (char*)current_return_value, (char*)original_return_value, highest_result);
+        QMM_WRITEQMMLOG(loglevel, "QMM_syscall_Post(%s(%d), %d) :: final return value: \"%s\" :: real return value: \"%s\" :: highest result: %s\n", msgname, cmd, args[0], (char*)current_return_value, (char*)original_return_value, highest_result);
 #else
         QMM_WRITEQMMLOG(loglevel, "QMM_syscall_Post(%s(%d), %d, \"%s\") :: highest result: %s\n", msgname, cmd, args[0], (char*)args[1], highest_result);
 #endif
     }
     else if (cmd == G_ARGS) {
-        QMM_WRITEQMMLOG(loglevel, "QMM_syscall_Post(%s(%d)) :: current return value: \"%s\" :: original return value: \"%s\" :: highest result: %s\n", msgname, cmd, (char*)current_return_value, (char*)original_return_value, highest_result);
+        QMM_WRITEQMMLOG(loglevel, "QMM_syscall_Post(%s(%d)) :: final return value: \"%s\" :: real return value: \"%s\" :: highest result: %s\n", msgname, cmd, (char*)current_return_value, (char*)original_return_value, highest_result);
     }
     else if (cmd == G_GET_ENTITY_TOKEN || cmd == G_CVAR_VARIABLE_INTEGER_VALUE || cmd == G_FS_FOPEN_FILE) {
-        QMM_WRITEQMMLOG(loglevel, "QMM_syscall_Post(%s(%d), \"%s\") :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, cmd, (const char*)args[0], current_return_value, original_return_value, highest_result);
+        QMM_WRITEQMMLOG(loglevel, "QMM_syscall_Post(%s(%d), \"%s\") :: final return value: %d :: real return value: %d :: highest result: %s\n", msgname, cmd, (const char*)args[0], current_return_value, original_return_value, highest_result);
     }
     else if (cmd == G_PRINT || cmd == G_ERROR) {
         QMM_WRITEQMMLOG(loglevel, "QMM_syscall_Post(%s(%d), \"%s\") :: highest result: %s\n", msgname, cmd, str_escape((char*)args[0]), highest_result);
@@ -409,7 +409,7 @@ C_DLLEXPORT intptr_t QMM_syscall_Post(result_vars* results, intptr_t cmd, intptr
         QMM_WRITEQMMLOG(loglevel, "QMM_syscall_Post(%s(%d), %p, %d, %d, %p, %d) :: highest result: %s\n", msgname, cmd, (void*)args[0], args[1], args[2], (void*)args[3], args[4], highest_result);
     }
     else {
-        QMM_WRITEQMMLOG(loglevel, "QMM_syscall_Post(%s(%d)) :: current return value: %d :: original return value: %d :: highest result: %s\n", msgname, cmd, current_return_value, original_return_value, highest_result);
+        QMM_WRITEQMMLOG(loglevel, "QMM_syscall_Post(%s(%d)) :: final return value: %d :: real return value: %d :: highest result: %s\n", msgname, cmd, current_return_value, original_return_value, highest_result);
     }
 
     QMM_RET_IGNORED(0);
