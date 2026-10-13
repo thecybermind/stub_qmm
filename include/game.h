@@ -70,7 +70,6 @@ Created By:
 #elif defined(GAME_QUAKE2)
     #include <quake2/game/g_local.h>
     #include <game_quake2.h>
-    #define GAME_Q2_ENGINE
     #define GAME_ARGV_RETURN
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
@@ -78,7 +77,6 @@ Created By:
 #elif defined(GAME_Q2R)
     #include <q2r/rerelease/g_local.h>
     #include <game_q2r.h>
-    #define GAME_Q2_ENGINE
     #define GAME_ARGV_RETURN
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
@@ -95,7 +93,6 @@ Created By:
 #elif defined(GAME_SIN)
     #include <sin/game/g_local.h>
     #include <game_sin.h>
-    #define GAME_Q2_ENGINE
     #define GAME_ARGV_RETURN
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
@@ -103,7 +100,6 @@ Created By:
 #elif defined(GAME_SOF)
     #include <sof/gamecpp/g_local.h>
     #include <game_sof.h>
-    #define GAME_Q2_ENGINE
     #define GAME_ARGV_RETURN
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
     #define GAME_CLIENT_COMMAND_HAS_ENT
