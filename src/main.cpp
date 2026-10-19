@@ -28,12 +28,8 @@ plugin_info g_plugininfo = {
     "https://github.com/thecybermind/stub_qmm",    // website of plugin
     "STUB",                                        // log tag
 };
-eng_syscall g_syscall = nullptr;
-eng_syscall_args g_syscall_args = nullptr;
-mod_vmMain g_vmMain = nullptr;
-mod_vmMain_args g_vmMain_args = nullptr;
-plugin_funcs* g_pluginfuncs = nullptr;
-plugin_vars* g_pluginvars = nullptr;
+plugin_funcs g_pluginfuncs;
+plugin_vars g_pluginvars;
 
 // store the game's entity and client info
 gentity_t* g_gents = nullptr;
@@ -94,7 +90,7 @@ char* get_args() {
     static char arg[MAX_STRING_CHARS];
     static char buf[MAX_STRING_CHARS];
     QMM_ARGV(0, buf, sizeof(buf));
-    intptr_t argc = g_syscall(G_ARGC);
+    intptr_t argc = QMM_SYSCALL(G_ARGC);
     for (intptr_t argnum = 1; argnum < argc; argnum++) {
         QMM_ARGV(argnum, arg, sizeof(arg));
         strncatz(buf, " ", sizeof(buf));
@@ -129,12 +125,14 @@ char* str_escape(const char* str) {
 
 
 /* QMM_Query
-   This is the first function called by QMM
+   This is the first function called by QMM.
    Do not do anything here that requires shutdown routines, as there is no equivalent called at shutdown
-    - pinfo = address of a pointer in QMM to this plugin's plugininfo struct
+    - plugininfo = address of a pointer in QMM to this plugin's plugininfo struct
+    - pluginfuncs = address of a pointer in QMM to this plugin's pluginfuncs struct
+    - pluginvars = address of a pointer in QMM to this plugin's pluginvars struct
 */
-C_DLLEXPORT void QMM_Query(plugin_info** pinfo) {
-    // give QMM our plugin info struct
+C_DLLEXPORT void QMM_Query(plugin_info** plugininfo, plugin_funcs** pluginfuncs, plugin_vars** pluginvars) {
+    // Give QMM our struct pointers
     QMM_GIVE_PINFO();
 }
 
@@ -143,22 +141,13 @@ C_DLLEXPORT void QMM_Query(plugin_info** pinfo) {
    This is the second function called by QMM.
    Keep in mind, this is called during QMM's handling of vmMain(GAME_INIT) *before* it has been routed to the mod,
    so the mod is completely uninitialized at this point, and is generally unsafe to call into. You can, however, use
-   some engine functions through syscall.
-    - engfunc      = pointer to the engine's syscall function with vararg arguments
-    - engfunc_args = pointer to the engine's syscall function with arguments in an intptr_t array
-    - modfunc      = pointer to the mod's vmMain function with vararg arguments
-    - modfunc_args = pointer to the mod's vmMain function with arguments in an intptr_t array
-    - presult      = pointer to plugin result variable
-    - pluginfuncs  = pointer to table of plugin helper function pointers
-    - pluginvars   = pointer to table of plugin helper variables
+   QMM functions and some engine functions through syscall.
    
    return:
     - 0 = failure, QMM_Detach will be called and plugin will be unloaded
     - 1 = succeed, plugin will be loaded
 */
-C_DLLEXPORT int QMM_Attach(eng_syscall engfunc, eng_syscall_args engfunc_args, mod_vmMain modfunc, mod_vmMain_args modfunc_args, plugin_funcs* pluginfuncs, plugin_vars* pluginvars) {
-    QMM_SAVE_VARS();
-
+C_DLLEXPORT int QMM_Attach() {
     // make sure this DLL is loaded only in the right engine
     if (strcmp(QMM_GETGAMEENGINE(), GAME_STR) != 0)
         return 0;
@@ -172,7 +161,6 @@ C_DLLEXPORT int QMM_Attach(eng_syscall engfunc, eng_syscall_args engfunc_args, m
    Keep in mind, the shutdown process occurs in QMM's vmMain(GAME_SHUTDOWN) *after* it has been routed to the mod, so the mod
    is completely shutdown at this point, and is generally unsafe to call into. You can, however, still use some engine functions
    through syscall.
-    - reserved = reserved for future use
 */
 C_DLLEXPORT void QMM_Detach() {
 }
@@ -188,7 +176,7 @@ C_DLLEXPORT void QMM_Detach() {
     - args = arguments to cmd
 */
 static intptr_t last_cmd = -1;
-static bool is_ignoring_syscalls = false;
+static bool is_ignorinSYSCALLs = false;
 C_DLLEXPORT intptr_t QMM_vmMain(result_vars* results, intptr_t cmd, intptr_t* args) {
     if (cmd == GAME_INIT) {
         // example showing writing to QMM log on initialization
@@ -197,7 +185,7 @@ C_DLLEXPORT intptr_t QMM_vmMain(result_vars* results, intptr_t cmd, intptr_t* ar
 
     // ignore repeated GAME_RUN_FRAME calls
     if (last_cmd == cmd && cmd == GAME_RUN_FRAME) {
-        is_ignoring_syscalls = true;
+        is_ignorinSYSCALLs = true;
         last_cmd = cmd;
         QMM_RET_IGNORED(0);
     }
@@ -259,9 +247,9 @@ C_DLLEXPORT intptr_t QMM_vmMain(result_vars* results, intptr_t cmd, intptr_t* ar
    In QMM_vmMain_Post functions, you can access *g_pluginvars->preturn to get the return value of the vmMain call that will be returned back to the engine
 */
 C_DLLEXPORT intptr_t QMM_vmMain_Post(result_vars* results, intptr_t cmd, intptr_t* args) {
-    if (is_ignoring_syscalls) {
+    if (is_ignorinSYSCALLs) {
         // end ignoring syscalls
-        is_ignoring_syscalls = false;
+        is_ignorinSYSCALLs = false;
         QMM_RET_IGNORED(0);
     }
 
@@ -308,7 +296,7 @@ C_DLLEXPORT intptr_t QMM_vmMain_Post(result_vars* results, intptr_t cmd, intptr_
     }
 
     // end ignoring syscalls
-    is_ignoring_syscalls = false;
+    is_ignorinSYSCALLs = false;
 
     QMM_RET_IGNORED(0);
 }
@@ -332,7 +320,7 @@ C_DLLEXPORT intptr_t QMM_syscall(result_vars* results, intptr_t cmd, intptr_t* a
         g_clientsize = args[4];
     }
 
-    if (is_ignoring_syscalls)
+    if (is_ignorinSYSCALLs)
         QMM_RET_IGNORED(0);
 
     const char* msgname = QMM_ENGMSGNAME(cmd);
@@ -374,7 +362,7 @@ C_DLLEXPORT intptr_t QMM_syscall(result_vars* results, intptr_t cmd, intptr_t* a
    back to the mod
 */
 C_DLLEXPORT intptr_t QMM_syscall_Post(result_vars* results, intptr_t cmd, intptr_t* args) {
-    if (is_ignoring_syscalls)
+    if (is_ignorinSYSCALLs)
         QMM_RET_IGNORED(0);
 
     const char* msgname = QMM_ENGMSGNAME(cmd);
