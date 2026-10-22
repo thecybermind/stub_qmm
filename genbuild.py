@@ -558,7 +558,7 @@ cp ../LICENSE ./
             if game not in no_x64:
                 f.write(f"cp ../bin/release-{game}/x64/{name}_x86_64_{game}.so ./\n")
 
-        f.write("popd\n")
+        f.write("cd ..\n")
 
 
 def gen_github_build_windows_package(name):

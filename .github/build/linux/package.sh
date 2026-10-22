@@ -37,4 +37,4 @@ cp ../bin/release-STVOYHM/x86/stub_qmm_STVOYHM.so ./
 cp ../bin/release-STVOYSP/x86/stub_qmm_STVOYSP.so ./
 cp ../bin/release-WET/x86/stub_qmm_WET.so ./
 cp ../bin/release-WET/x64/stub_qmm_x86_64_WET.so ./
-popd
+cd ..
