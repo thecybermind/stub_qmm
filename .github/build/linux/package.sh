@@ -15,6 +15,7 @@ cp ../bin/release-JK2MP/x86/stub_qmm_JK2MP.so ./
 cp ../bin/release-JK2MP/x64/stub_qmm_x86_64_JK2MP.so ./
 cp ../bin/release-JK2SP/x86/stub_qmm_JK2SP.so ./
 cp ../bin/release-JK2SP/x64/stub_qmm_x86_64_JK2SP.so ./
+cp ../bin/release-KINGPIN/x86/stub_qmm_KINGPIN.so ./
 cp ../bin/release-MOHAA/x86/stub_qmm_MOHAA.so ./
 cp ../bin/release-MOHBT/x86/stub_qmm_MOHBT.so ./
 cp ../bin/release-MOHSH/x86/stub_qmm_MOHSH.so ./
