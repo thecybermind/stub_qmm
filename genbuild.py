@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # genbuild.py - generate build, MSVC, and GitHub action files for a QMM plugin
 # Copyright 2004-2026
 # https://github.com/thecybermind/stub_qmm/
