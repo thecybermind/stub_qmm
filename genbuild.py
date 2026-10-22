@@ -552,11 +552,11 @@ cp ../README.md ./
 cp ../LICENSE ./
 """)
 
-        for game in games:
+        for game in games_no_linux:
             if game not in no_x86:
                 f.write(f"cp ../bin/release-{game}/x86/{name}_{game}.so ./\n")
             if game not in no_x64:
-                f.write(f"cp ../bin/release-{game}/x64/{name}_x86_64_{game}.so ./\n")
+                f.write(f"cp ../bin/release-{game}/x86_64/{name}_x86_64_{game}.so ./\n")
 
         f.write("cd ..\n")
 
