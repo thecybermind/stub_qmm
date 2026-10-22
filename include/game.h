@@ -47,6 +47,14 @@ Created By:
     #include <game_jk2sp.h>
     #define GAME_ARGV_RETURN
     #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
+#elif defined(GAME_KINGPIN)
+    #include <kingpin/q_shared.h>
+    #include <kingpin/game.h>
+    #include <game_kingpin.h>
+    #define GAME_ARGV_RETURN
+    #define GAME_HAS_SPAWN_ENTITIES_MAPNAME
+    #define GAME_CLIENT_COMMAND_HAS_ENT
+    #define GAME_CLIENT_CONNECT_RETURNS_BOOL
 #elif defined(GAME_MOHAA)
     #include <mohaa/fgame/g_local.h>
     #include <mohaa/fgame/bg_public.h>
