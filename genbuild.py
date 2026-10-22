@@ -423,11 +423,9 @@ def gen_makefile(name):
     games_no_linux = [game for game in games if game not in no_linux]
     with open(f"Makefile", "w", encoding="utf-8") as f:
         f.write(
-            f"""# STUB_QMM - Example QMM Plugin
-# Copyright 2004-2026
-# https://github.com/thecybermind/stub_qmm/
+            f"""# {name} - QMM Plugin
+# Copyright 2026
 # 3-clause BSD license: https://opensource.org/license/bsd-3-clause
-# Created By: Kevin Masterson < k.m.masterson@gmail.com >
 
 BIN_32 := {name}
 BIN_64 := {name}_x86_64
