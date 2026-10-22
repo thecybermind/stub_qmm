@@ -14,6 +14,7 @@ copy ..\bin\Release-JK2MP\x86\stub_qmm_JK2MP.dll .\
 copy ..\bin\Release-JK2MP\x64\stub_qmm_x86_64_JK2MP.dll .\
 copy ..\bin\Release-JK2SP\x86\stub_qmm_JK2SP.dll .\
 copy ..\bin\Release-JK2SP\x64\stub_qmm_x86_64_JK2SP.dll .\
+copy ..\bin\Release-KINGPIN\x86\stub_qmm_KINGPIN.dll .\
 copy ..\bin\Release-MOHAA\x86\stub_qmm_MOHAA.dll .\
 copy ..\bin\Release-MOHBT\x86\stub_qmm_MOHBT.dll .\
 copy ..\bin\Release-MOHSH\x86\stub_qmm_MOHSH.dll .\

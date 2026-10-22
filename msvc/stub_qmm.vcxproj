@@ -29,6 +29,10 @@
       <Configuration>Debug-JK2SP</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-KINGPIN|Win32">
+      <Configuration>Debug-KINGPIN</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug-MOHAA|Win32">
       <Configuration>Debug-MOHAA</Configuration>
       <Platform>Win32</Platform>
@@ -155,6 +159,10 @@
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release-JK2SP|Win32">
       <Configuration>Release-JK2SP</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-KINGPIN|Win32">
+      <Configuration>Release-KINGPIN</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release-MOHAA|Win32">
@@ -327,6 +335,9 @@
   <PropertyGroup Condition="$(Platform)=='Win32' And $(Configuration.EndsWith('-JK2SP'))==true">
     <TargetName>$(ProjectName)_JK2SP</TargetName>
   </PropertyGroup>
+  <PropertyGroup Condition="$(Platform)=='Win32' And $(Configuration.EndsWith('-KINGPIN'))==true">
+    <TargetName>$(ProjectName)_KINGPIN</TargetName>
+  </PropertyGroup>
   <PropertyGroup Condition="$(Platform)=='Win32' And $(Configuration.EndsWith('-MOHAA'))==true">
     <TargetName>$(ProjectName)_MOHAA</TargetName>
   </PropertyGroup>
@@ -474,6 +485,11 @@
   <ItemDefinitionGroup Condition="$(Configuration.EndsWith('-JK2SP'))==true">
     <ClCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);GAME_JK2SP;GAME_STR="JK2SP"</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="$(Configuration.EndsWith('-KINGPIN'))==true">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);GAME_KINGPIN;GAME_STR="KINGPIN"</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="$(Configuration.EndsWith('-MOHAA'))==true">

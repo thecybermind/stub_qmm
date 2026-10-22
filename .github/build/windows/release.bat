@@ -20,6 +20,8 @@ msbuild .\msvc\stub_qmm.vcxproj /p:Configuration=Release-JK2SP /p:Platform=x86
 if errorlevel 1 exit /b errorlevel
 msbuild .\msvc\stub_qmm.vcxproj /p:Configuration=Release-JK2SP /p:Platform=x64
 if errorlevel 1 exit /b errorlevel
+msbuild .\msvc\stub_qmm.vcxproj /p:Configuration=Release-KINGPIN /p:Platform=x86
+if errorlevel 1 exit /b errorlevel
 msbuild .\msvc\stub_qmm.vcxproj /p:Configuration=Release-MOHAA /p:Platform=x86
 if errorlevel 1 exit /b errorlevel
 msbuild .\msvc\stub_qmm.vcxproj /p:Configuration=Release-MOHBT /p:Platform=x86
