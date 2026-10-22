@@ -550,15 +550,15 @@ cd package
 rm -f *
 cp ../README.md ./
 cp ../LICENSE ./
+""")
 
-for f in {" ".join(games_no_linux)}; do
-  cp ../bin/release-$f/x86/{name}_$f.so ./
-  cp ../bin/release-$f/x86_64/{name}_x86_64_$f.so ./
-done
+        for game in games:
+            if game not in no_x86:
+                f.write(f"cp ../bin/release-{game}/x86/{name}_{game}.so ./\n")
+            if game not in no_x64:
+                f.write(f"cp ../bin/release-{game}/x64/{name}_x86_64_{game}.so ./\n")
 
-cd ..
-"""
-        )
+        f.write("popd\n")
 
 
 def gen_github_build_windows_package(name):

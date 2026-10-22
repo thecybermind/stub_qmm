@@ -4,10 +4,36 @@ cd package
 rm -f *
 cp ../README.md ./
 cp ../LICENSE ./
-
-for f in COD11MP CODMP CODUOMP JAMP JASP JK2MP JK2SP MOHAA MOHBT MOHSH Q3A QUAKE2 RTCWMP RTCWSP SIN SOF SOF2MP SOF2SP STEF2 STVOYHM STVOYSP WET; do
-  cp ../bin/release-$f/x86/stub_qmm_$f.so ./
-  cp ../bin/release-$f/x86_64/stub_qmm_x86_64_$f.so ./
-done
-
-cd ..
+cp ../bin/release-COD11MP/x86/stub_qmm_COD11MP.so ./
+cp ../bin/release-CODMP/x86/stub_qmm_CODMP.so ./
+cp ../bin/release-CODUOMP/x86/stub_qmm_CODUOMP.so ./
+cp ../bin/release-JAMP/x86/stub_qmm_JAMP.so ./
+cp ../bin/release-JAMP/x64/stub_qmm_x86_64_JAMP.so ./
+cp ../bin/release-JASP/x86/stub_qmm_JASP.so ./
+cp ../bin/release-JASP/x64/stub_qmm_x86_64_JASP.so ./
+cp ../bin/release-JK2MP/x86/stub_qmm_JK2MP.so ./
+cp ../bin/release-JK2MP/x64/stub_qmm_x86_64_JK2MP.so ./
+cp ../bin/release-JK2SP/x86/stub_qmm_JK2SP.so ./
+cp ../bin/release-JK2SP/x64/stub_qmm_x86_64_JK2SP.so ./
+cp ../bin/release-MOHAA/x86/stub_qmm_MOHAA.so ./
+cp ../bin/release-MOHBT/x86/stub_qmm_MOHBT.so ./
+cp ../bin/release-MOHSH/x86/stub_qmm_MOHSH.so ./
+cp ../bin/release-Q2R/x64/stub_qmm_x86_64_Q2R.so ./
+cp ../bin/release-Q3A/x86/stub_qmm_Q3A.so ./
+cp ../bin/release-Q3A/x64/stub_qmm_x86_64_Q3A.so ./
+cp ../bin/release-QUAKE2/x86/stub_qmm_QUAKE2.so ./
+cp ../bin/release-QUAKE2/x64/stub_qmm_x86_64_QUAKE2.so ./
+cp ../bin/release-RTCWMP/x86/stub_qmm_RTCWMP.so ./
+cp ../bin/release-RTCWMP/x64/stub_qmm_x86_64_RTCWMP.so ./
+cp ../bin/release-RTCWSP/x86/stub_qmm_RTCWSP.so ./
+cp ../bin/release-RTCWSP/x64/stub_qmm_x86_64_RTCWSP.so ./
+cp ../bin/release-SIN/x86/stub_qmm_SIN.so ./
+cp ../bin/release-SOF/x86/stub_qmm_SOF.so ./
+cp ../bin/release-SOF2MP/x86/stub_qmm_SOF2MP.so ./
+cp ../bin/release-SOF2SP/x86/stub_qmm_SOF2SP.so ./
+cp ../bin/release-STEF2/x86/stub_qmm_STEF2.so ./
+cp ../bin/release-STVOYHM/x86/stub_qmm_STVOYHM.so ./
+cp ../bin/release-STVOYSP/x86/stub_qmm_STVOYSP.so ./
+cp ../bin/release-WET/x86/stub_qmm_WET.so ./
+cp ../bin/release-WET/x64/stub_qmm_x86_64_WET.so ./
+popd
