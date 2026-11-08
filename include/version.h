@@ -9,6 +9,8 @@ Created By:
 
 */
 
+#pragma once
+
 #ifndef STUB_QMM_VERSION_H
 #define STUB_QMM_VERSION_H
 
