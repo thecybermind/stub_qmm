@@ -431,18 +431,21 @@ def gen_makefile(name):
 BIN_32 := {name}
 BIN_64 := {name}_x86_64
 
-CC := g++
+CC := gcc
+CXXC := g++
 
 SRC_DIR := src
 OBJ_DIR := obj
 BIN_DIR := bin
 
-SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
+SRC_C   := $(wildcard $(SRC_DIR)/*.c)
+SRC_CXX := $(wildcard $(SRC_DIR)/*.cpp)
 
-OBJ_FILES := $(SRC_FILES:$(SRC_DIR)/%.cpp=%.o)
+OBJ_FILES := $(SRC_CXX:$(SRC_DIR)/%.cpp=%.o) $(SRC_C:$(SRC_DIR)/%.c=%.o)
 
 CPPFLAGS := -MMD -MP -I ./include -isystem ../qmm_sdks -isystem ../qmm2/include
-CFLAGS   := -Wall -pipe -fPIC
+CFLAGS   := -Wall -Werror -pipe -fPIC -fvisibility=hidden -std=gnu17
+CXXFLAGS := -Wall -Werror -pipe -fPIC -fvisibility=hidden -std=c++17
 LDFLAGS  := -shared -fPIC
 LDLIBS   :=
 
@@ -453,6 +456,11 @@ REL_CFLAGS_32 := $(CFLAGS) -m32 -O2 -falign-functions=16 -fno-strict-aliasing -f
 REL_CFLAGS_64 := $(CFLAGS) -O2 -falign-functions=16 -fno-strict-aliasing -fstrength-reduce 
 DBG_CFLAGS_32 := $(CFLAGS) -m32 -g -pg
 DBG_CFLAGS_64 := $(CFLAGS) -g -pg
+
+REL_CXXFLAGS_32 := $(CXXFLAGS) -m32 -O2 -falign-functions=16 -fno-strict-aliasing -fstrength-reduce
+REL_CXXFLAGS_64 := $(CXXFLAGS) -O2 -falign-functions=16 -fno-strict-aliasing -fstrength-reduce
+DBG_CXXFLAGS_32 := $(CXXFLAGS) -m32 -g -pg -fsanitize=undefined -fsanitize=address
+DBG_CXXFLAGS_64 := $(CXXFLAGS) -g -pg -fsanitize=undefined -fsanitize=address
 
 REL_LDFLAGS_32 := $(LDFLAGS) -m32
 REL_LDFLAGS_64 := $(LDFLAGS)
@@ -516,9 +524,17 @@ $(BIN_DIR)/debug-{game}/x86/$(BIN_32)_{game}.so: $(addprefix $(OBJ_DIR)/debug-{g
 
 $(OBJ_DIR)/release-{game}/x86/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(@D)
+	$(CC) $(REL_CPPFLAGS) -DGAME_{game} -DGAME_STR=\\"{game}\\" $(REL_CXXFLAGS_32) -c $< -o $@
+
+$(OBJ_DIR)/release-{game}/x86/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(@D)
 	$(CC) $(REL_CPPFLAGS) -DGAME_{game} -DGAME_STR=\\"{game}\\" $(REL_CFLAGS_32) -c $< -o $@
 
 $(OBJ_DIR)/debug-{game}/x86/%.o: $(SRC_DIR)/%.cpp
+	mkdir -p $(@D)
+	$(CC) $(DBG_CPPFLAGS) -DGAME_{game} -DGAME_STR=\\"{game}\\" $(DBG_CXXFLAGS_32) -c $< -o $@
+
+$(OBJ_DIR)/debug-{game}/x86/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(@D)
 	$(CC) $(DBG_CPPFLAGS) -DGAME_{game} -DGAME_STR=\\"{game}\\" $(DBG_CFLAGS_32) -c $< -o $@
 
@@ -541,9 +557,17 @@ $(BIN_DIR)/debug-{game}/x86_64/$(BIN_64)_{game}.so: $(addprefix $(OBJ_DIR)/debug
 
 $(OBJ_DIR)/release-{game}/x86_64/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(@D)
+	$(CC) $(REL_CPPFLAGS) -DGAME_{game} -DGAME_STR=\\"{game}\\" $(REL_CXXFLAGS_64) -c $< -o $@
+
+$(OBJ_DIR)/release-{game}/x86_64/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(@D)
 	$(CC) $(REL_CPPFLAGS) -DGAME_{game} -DGAME_STR=\\"{game}\\" $(REL_CFLAGS_64) -c $< -o $@
 
 $(OBJ_DIR)/debug-{game}/x86_64/%.o: $(SRC_DIR)/%.cpp
+	mkdir -p $(@D)
+	$(CC) $(DBG_CPPFLAGS) -DGAME_{game} -DGAME_STR=\\"{game}\\" $(DBG_CXXFLAGS_64) -c $< -o $@
+
+$(OBJ_DIR)/debug-{game}/x86_64/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(@D)
 	$(CC) $(DBG_CPPFLAGS) -DGAME_{game} -DGAME_STR=\\"{game}\\" $(DBG_CFLAGS_64) -c $< -o $@
 

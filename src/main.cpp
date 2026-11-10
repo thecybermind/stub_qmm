@@ -63,7 +63,7 @@ const char* plugin_result_to_str(plugin_res res) {
 
 // "safe" strncpy that always null-terminates
 char* strncpyz(char* dest, const char* src, size_t count) {
-    char* ret = strncpy(dest, src, count);
+    char* ret = (char*)memcpy(dest, src, count);
     dest[count - 1] = '\0';
     return ret;
 }
@@ -74,12 +74,14 @@ char* strncatz(char* dest, const char* src, size_t count) {
     size_t len = strlen(dest);
     if (len >= count)
         return dest;
+    size_t slen = strlen(src);
     // free space available in dest
     size_t avail = count - len;
     // strncat may null terminate at count+1 which may be outside the buffer if count is the full buffer size
     if (avail)
         avail--;
-    char* ret = strncat(dest, src, avail);
+    char* ret = (char*)memcpy(dest + len, src, avail);
+    dest[len + slen] = '\0';
     dest[count - 1] = '\0';
     return ret;
 }
